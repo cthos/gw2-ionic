@@ -32,30 +32,37 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   $stateProvider
 
   // setup an abstract state for the tabs directive
-    .state('tab', {
+  .state('app', {
+    controller : 'AppCtrl',
+    templateUrl : 'templates/app.html'
+  })
+
+  .state('tab', {
     url: '/tab',
     abstract: true,
-    templateUrl: 'templates/tabs.html'
+    templateUrl: 'templates/tabs.html',
+    controller: 'TabCtrl',
+    parent : 'app'
   })
 
   // Each tab has its own nav history stack:
 
-  .state('tab.dash', {
-    url: '/dash',
+  .state('tab.pve', {
+    url: '/pve',
     views: {
-      'tab-dash': {
-        templateUrl: 'templates/tab-dash.html',
-        controller: 'DashCtrl'
+      'tab-pve': {
+        templateUrl: 'templates/tab-pve.html',
+        controller: 'PVECtrl'
       }
     }
   })
 
-  .state('tab.chats', {
-      url: '/chats',
+  .state('tab.pvp', {
+      url: '/pvp',
       views: {
-        'tab-chats': {
-          templateUrl: 'templates/tab-chats.html',
-          controller: 'ChatsCtrl'
+        'tab-pvp': {
+          templateUrl: 'templates/tab-pvp.html',
+          controller: 'PVPCtrl'
         }
       }
     })
@@ -69,17 +76,31 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     })
 
-  .state('tab.account', {
-    url: '/account',
+  .state('tab.wvw', {
+    url: '/wvw',
     views: {
-      'tab-account': {
-        templateUrl: 'templates/tab-account.html',
-        controller: 'AccountCtrl'
+      'tab-wvw': {
+        templateUrl: 'templates/tab-wvw.html',
+        controller: 'WVWCtrl'
       }
     }
+  })
+
+  .state('characters', {
+    url: '/characters',
+    templateUrl : 'templates/characters.html',
+    controller : 'CharCtrl',
+    parent : 'app'
+  })
+
+  .state('settings', {
+    url: '/settings',
+    templateUrl : 'templates/settings.html',
+    controller : 'SettingsCtrl',
+    parent : 'app'
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/dash');
+  $urlRouterProvider.otherwise('/tab/pve');
 
 });

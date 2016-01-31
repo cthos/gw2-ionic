@@ -1,0 +1,36 @@
+<ion-side-menus>
+  <ion-side-menu side="left">
+    <ion-header-bar>
+      <h1 class="title">GW2 Account Viewer</h1>
+    </ion-header-bar>
+    <ion-content>
+      <ion-list class="av-sidebar">
+        <ion-item class="item-icon-left" menu-close href="#/tab/pve">
+          <i class="icon ion-clock"></i>
+          Achievements
+        </ion-item>
+        <ion-item class="item-icon-left" menu-close href="#/characters">
+          <i class="icon ion-android-person"></i>
+          Characters
+        </ion-item>
+        <ion-item class="item-icon-left" menu-close href="#/settings">
+          <i class="icon ion-android-settings"></i>
+          Settings
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-side-menu>
+  <ion-side-menu-content>
+    <ion-nav-bar class="bar-stable">
+      <ion-nav-buttons side="primary">
+        <button class="button button-icon" ng-click="toggleSide()">
+         <i class="icon ion-navicon"></i>
+       </button>
+      </ion-nav-buttons>
+      <ion-nav-back-button>
+      </ion-nav-back-button>
+    </ion-nav-bar>
+    <ion-nav-view>
+    </ion-nav-view>
+  </ion-side-menu-content>
+</ion-side-menu>

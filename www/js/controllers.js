@@ -1,28 +1,68 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['ionic'])
+.config(function ($sceDelegateProvider) {
+  $sceDelegateProvider.resourceUrlWhitelist(['https://api.guildwars2.com/*']);
+})
 
-.controller('DashCtrl', function($scope) {})
-
-.controller('ChatsCtrl', function($scope, Chats) {
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
-
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
+.controller('AppCtrl', function ($scope, $rootScope, $ionicSideMenuDelegate) {
+  $rootScope.toggleSide = function () {
+    $ionicSideMenuDelegate.toggleLeft();
   };
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
+.controller('TabCtrl', function($scope, $rootScope, $ionicSideMenuDelegate, $ionicLoading, GW2API) {
+  $ionicLoading.show({
+    template: "Loading Data..."
+  });
+  GW2API.reload().then(function (achs) {
+    $scope.achievements = achs;
+    $ionicLoading.hide();
+  });
 })
 
-.controller('AccountCtrl', function($scope) {
+.controller('PVECtrl', function($scope, GW2API) {
+  $scope.$parent.$watch('achievements', function (newVal) {
+    if (!newVal) {
+      return;
+    }
+    $scope.pve = $scope.$parent.achievements.pve;
+  });
+})
+
+.controller('PVPCtrl', function($scope, GW2API) {
+  $scope.$parent.$watch('achievements', function (newVal) {
+    if (!newVal) {
+      return;
+    }
+    $scope.pvp = $scope.$parent.achievements.pvp;
+  });
+})
+
+.controller('WVWCtrl', function($scope, GW2API) {
+  $scope.$parent.$watch('achievements', function (newVal) {
+    if (!newVal) {
+      return;
+    }
+    $scope.wvw = $scope.$parent.achievements.wvw;
+  });
+})
+
+.controller('CharCtrl', function($scope, $ionicLoading, GW2API) {
+  $ionicLoading.show({
+    template : 'Getting Characters...'
+  });
+  $scope.characters = [];
+  console.log(GW2API.api.getAPIKey());
+
+  GW2API.api.getCharacters().then(function (characters) {
+    $scope.characters = characters;
+  });
+})
+
+.controller('SettingsCtrl', function ($scope, GW2API) {
   $scope.settings = {
-    enableFriends: true
+    apiKey: GW2API.api.getAPIKey()
   };
+  $scope.$watch('settings.apiKey', function (newVal) {
+    GW2API.api.setAPIKey(newVal);
+  });
 });
