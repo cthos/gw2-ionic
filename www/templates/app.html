@@ -1,5 +1,5 @@
 <ion-side-menus>
-  <ion-side-menu side="left">
+  <ion-side-menu side="right">
     <ion-header-bar>
       <h1 class="title">GW2 Account Viewer</h1>
     </ion-header-bar>
@@ -13,6 +13,10 @@
           <i class="icon ion-android-person"></i>
           Characters
         </ion-item>
+        <ion-item class="item-icon-left" menu-close href="#/wallet">
+          <i class="icon ion-bag"></i>
+          Wallet
+        </ion-item>
         <ion-item class="item-icon-left" menu-close href="#/settings">
           <i class="icon ion-android-settings"></i>
           Settings
@@ -22,7 +26,7 @@
   </ion-side-menu>
   <ion-side-menu-content>
     <ion-nav-bar class="bar-stable">
-      <ion-nav-buttons side="primary">
+      <ion-nav-buttons side="secondary">
         <button class="button button-icon" ng-click="toggleSide()">
          <i class="icon ion-navicon"></i>
        </button>

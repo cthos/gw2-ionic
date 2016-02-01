@@ -1,10 +1,10 @@
 <ion-view view-title="Character List">
   <ion-content class="padding">
-    <ul class="character-list list">
-      <li class="item item-icon-left" ng-repeat="char in characters">
+    <ion-list class="character-list list">
+      <ion-item class="item-icon-left" ng-repeat="char in characters" href="#character/{{char}}">
         <i class="icon ion-android-person"></i>
         {{char}}
-      </li>
-    </ul>
+      </ion-item>
+    </ion-list>
   </ion-content>
 </ion-view>

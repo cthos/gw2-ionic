@@ -93,6 +93,20 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     parent : 'app'
   })
 
+  .state('character-detail', {
+    url: '/character/{charname}',
+    templateUrl : 'templates/character-detail.html',
+    controller : 'CharacterViewCtrl',
+    parent : 'app'
+  })
+
+  .state('wallet', {
+    url : '/wallet',
+    templateUrl : 'templates/wallet.html',
+    controller : 'WalletCtrl',
+    parent : 'app'
+  })
+
   .state('settings', {
     url: '/settings',
     templateUrl : 'templates/settings.html',

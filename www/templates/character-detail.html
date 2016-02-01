@@ -1,3 +1,38 @@
 <ion-view view-title="{{ character.name }}">
-
+    <ion-content>
+        <div class="card">
+            <div class="item item-divider">
+                Details
+            </div>
+            <div>
+                <ion-list>
+                    <ion-item>
+                        <h2>Profession</h2>
+                        <p>{{ character.profession }}</p>
+                    </ion-item>
+                    <ion-item>
+                        <h2>Level</h2>
+                        <p>{{ character.level }}</p>
+                    </ion-item>
+                    <ion-item>
+                        <h2>Race</h2>
+                        <p>{{ character.race }}</p>
+                    </ion-item>
+                </ion-list>
+            </div>
+        </div>
+        <div class="card">
+            <ion-item class="item-divider">
+                Professions
+            </ion-item>
+            <div>
+                <ion-list>
+                    <ion-item ng-repeat="prof in character.crafting">
+                        <h2>{{prof.discipline}}</h2>
+                        <p>{{prof.rating}}</p>
+                    </ion-item>
+                </ion-list>
+            </div>
+        </div>
+    </ion-content>
 </ion-view>

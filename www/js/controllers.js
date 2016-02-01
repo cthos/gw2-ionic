@@ -5,7 +5,7 @@ angular.module('starter.controllers', ['ionic'])
 
 .controller('AppCtrl', function ($scope, $rootScope, $ionicSideMenuDelegate) {
   $rootScope.toggleSide = function () {
-    $ionicSideMenuDelegate.toggleLeft();
+    $ionicSideMenuDelegate.toggleRight();
   };
 })
 
@@ -60,8 +60,28 @@ angular.module('starter.controllers', ['ionic'])
   });
 })
 
-.controller('CharacterViewCtrl', function ($scope, $ionicLoading, GW2API) {
+.controller('CharacterViewCtrl', function ($scope, $ionicLoading, $stateParams, GW2API) {
+  $ionicLoading.show({
+    template : 'Loading...'
+  });
 
+  GW2API.api.getCharacters($stateParams.charname).then(function (character) {
+    $scope.character = character;
+    console.log(character);
+    $ionicLoading.hide();
+  });
+})
+
+.controller('WalletCtrl', function ($scope, $ionicLoading, GW2API) {
+  $ionicLoading.show({
+    template : 'Loading wallet...'
+  });
+
+  GW2API.api.getWallet(true).then(function (w) {
+    console.log(w);
+    $ionicLoading.hide();
+    $scope.wallet = w;
+  });
 })
 
 .controller('SettingsCtrl', function ($scope, GW2API) {
