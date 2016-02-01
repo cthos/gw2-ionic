@@ -36845,7 +36845,7 @@ module.exports = global.Promise || require('pinkie');
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"pinkie":331}],331:[function(require,module,exports){
-(function (process){
+(function (global){
 'use strict';
 
 var PENDING = 'pending';
@@ -36853,7 +36853,7 @@ var SETTLED = 'settled';
 var FULFILLED = 'fulfilled';
 var REJECTED = 'rejected';
 var NOOP = function () {};
-var isNode = typeof process !== 'undefined' && typeof process.emit === 'function';
+var isNode = global.process !== 'undefined' && typeof global.process.emit === 'function';
 
 var asyncSetTimer = typeof setImmediate === 'undefined' ? setTimeout : setImmediate;
 var asyncQueue = [];
@@ -37004,12 +37004,12 @@ function publishRejection(promise) {
 	promise._state = REJECTED;
 	publish(promise);
 	if (!promise._handled && isNode) {
-		process.emit('unhandledRejection', promise._data, promise);
+		global.process.emit('unhandledRejection', promise._data, promise);
 	}
 }
 
 function notifyRejectionHandled(promise) {
-	process.emit('rejectionHandled', promise);
+	global.process.emit('rejectionHandled', promise);
 }
 
 /**
@@ -37139,8 +37139,8 @@ Promise.reject = function (reason) {
 
 module.exports = Promise;
 
-}).call(this,require('_process'))
-},{"_process":219}],332:[function(require,module,exports){
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{}],332:[function(require,module,exports){
 /*
     HTTP Hawk Authentication Scheme
     Copyright (c) 2012-2014, Eran Hammer <eran@hammer.io>
@@ -57565,6 +57565,8 @@ exports.rsasign = rsasign
 exports.plaintext = plaintext
 exports.sign = sign
 exports.rfc3986 = rfc3986
+exports.generateBase = generateBase
+
 
 },{"crypto":21,"querystring":223}],386:[function(require,module,exports){
 'use strict';
@@ -63286,6 +63288,8 @@ var GW2API = function () {
   this.storage = typeof localStorage === "undefined" ? null : localStorage;
   this.lang = 'en_US';
   this.cache = this.storeInCache = false;
+
+  this.useAuthHeader = true;
 }
 
 GW2API.prototype = {
@@ -63316,6 +63320,30 @@ GW2API.prototype = {
    */
   getStorage: function () {
     return this.storage;
+  },
+
+  /**
+   * Setter for the useAuthHeader property.
+   *
+   * Typically you'll set this to false if you're in a browser
+   * because the API doesn't support OPTIONS.
+   *
+   * @param {boolean} useAuthHeader
+   * @returns {GW2API}
+     */
+  setUseAuthHeader : function (useAuthHeader) {
+    this.useAuthHeader = useAuthHeader;
+
+    return this;
+  },
+
+  /**
+   * Getter for useAuthHeader.
+   *
+   * @returns {boolean}
+     */
+  getUseAuthHeader : function () {
+    return this.useAuthHeader;
   },
 
   /**
@@ -63627,7 +63655,7 @@ GW2API.prototype = {
    *
    * @param {String|Array} objectiveIds
    *   <optional> Either an objectiveId or array of ids.
-   *   
+   *
    * @return {Promise}
    */
   getWVWObjectives : function (objectiveIds) {
@@ -64135,19 +64163,24 @@ GW2API.prototype = {
     }
 
     if (!params) {
-      params = null;
+      params = {};
     }
 
     var options = {
-      url : this.baseUrl + endpoint,
-      qs : params
-    }
+      url : this.baseUrl + endpoint
+    };
 
     if (requiresAuth) {
-      options['headers'] = {
-        'Authorization' : 'Bearer ' + this.getAPIKey()
+      if (this.useAuthHeader) {
+        options['headers'] = {
+          'Authorization' : 'Bearer ' + this.getAPIKey()
+        }
+      } else {
+        params['access_token'] = this.getAPIKey();
       }
     }
+
+    options['qs'] = params;
 
     var keys = _.keys(params).sort();
     var tmpArr = [];

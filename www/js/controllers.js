@@ -51,11 +51,17 @@ angular.module('starter.controllers', ['ionic'])
     template : 'Getting Characters...'
   });
   $scope.characters = [];
-  console.log(GW2API.api.getAPIKey());
 
   GW2API.api.getCharacters().then(function (characters) {
     $scope.characters = characters;
+    $ionicLoading.hide();
+  }).catch(function (err) {
+    $ionicLoading.hide();
   });
+})
+
+.controller('CharacterViewCtrl', function ($scope, $ionicLoading, GW2API) {
+
 })
 
 .controller('SettingsCtrl', function ($scope, GW2API) {
