@@ -9,17 +9,57 @@ angular.module('starter.controllers', ['ionic'])
   };
 })
 
-.controller('TabCtrl', function($scope, $rootScope, $ionicSideMenuDelegate, $ionicLoading, GW2API) {
+.controller('TabCtrl', function($scope, $rootScope, $ionicSideMenuDelegate, $ionicLoading, GW2API, PersistenceFW) {
   $ionicLoading.show({
     template: "Loading Data..."
   });
+
   GW2API.reload().then(function (achs) {
     $scope.achievements = achs;
     $ionicLoading.hide();
   });
 })
 
-.controller('PVECtrl', function($scope, GW2API) {
+.controller('PVECtrl', function($scope, GW2API, PersistenceFW) {
+  if (window.localStorage['gw2-completed-events']) {
+    //console.debug(JSON.parse(window.localStorage['gw2-completed-events']).events);
+    $scope.events = JSON.parse(window.localStorage['gw2-completed-events']).events;
+  } else {
+    $scope.events = {};
+  }
+
+  PersistenceFW.getSyncStatus().then(function (syncId) {
+    if (PersistenceFW.currentSyncId < syncId) {
+      PersistenceFW.syncDown().then(function (data) {
+        console.log(data);
+        $scope.events;
+      });
+    }
+  }).catch(function (fail) {
+
+  });
+
+  $scope.eventChanged = function (ev) {
+    var evs = [];
+    console.log($scope.events);
+    for (var evid in $scope.events) {
+      if ($scope.events[evid]) {
+        evs.push({id : evid});
+      }
+    }
+
+    window.localStorage['gw2-completed-events'] = JSON.stringify({
+      // TODO: Make that work.
+      date : '',
+      events : $scope.events
+    });
+
+    PersistenceFW.syncUp(evs).then(function (res) {
+      console.log(res);
+    }).catch(function (err) {
+      console.log(err);
+    });
+  };
   $scope.$parent.$watch('achievements', function (newVal) {
     if (!newVal) {
       return;

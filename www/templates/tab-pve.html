@@ -1,10 +1,10 @@
 <ion-view view-title="Daily PVE">
   <ion-content class="padding">
     <ul class="daily-pve list">
-      <li class="item item-icon-left" ng-repeat="ach in pve">
+      <ion-toggle class="item-icon-left" ng-repeat="ach in pve" ng-model="events[ach.id]" ng-change="eventChanged()">
         <i class="icon ion-android-globe"></i>
         {{ach.name}}
-      </li>
+      </ion-toggle>
     </ul>
   </ion-content>
 </ion-view>
