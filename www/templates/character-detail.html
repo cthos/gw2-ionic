@@ -1,38 +1,39 @@
-<ion-view view-title="{{ vm.character.name }}">
+<ion-view view-title="Character View">
     <ion-content>
-        <div class="card">
-            <div class="item item-divider">
-                Details
-            </div>
-            <div>
-                <ion-list>
-                    <ion-item>
-                        <h2>Profession</h2>
-                        <p>{{ vm.character.profession }}</p>
-                    </ion-item>
-                    <ion-item>
-                        <h2>Level</h2>
-                        <p>{{ vm.character.level }}</p>
-                    </ion-item>
-                    <ion-item>
-                        <h2>Race</h2>
-                        <p>{{ vm.character.race }}</p>
-                    </ion-item>
-                </ion-list>
-            </div>
-        </div>
-        <div class="card">
-            <ion-item class="item-divider">
-                Professions
-            </ion-item>
-            <div>
-                <ion-list>
-                    <ion-item ng-repeat="prof in vm.character.crafting">
-                        <h2>{{prof.discipline}}</h2>
-                        <p>{{prof.rating}}</p>
-                    </ion-item>
-                </ion-list>
-            </div>
-        </div>
+      <h2>{{ vm.character.name }}</h2>
+      <div class="card">
+          <div class="item item-divider">
+              Details
+          </div>
+          <div>
+              <ion-list>
+                  <ion-item>
+                      <h2>Profession</h2>
+                      <p>{{ vm.character.profession }}</p>
+                  </ion-item>
+                  <ion-item>
+                      <h2>Level</h2>
+                      <p>{{ vm.character.level }}</p>
+                  </ion-item>
+                  <ion-item>
+                      <h2>Race</h2>
+                      <p>{{ vm.character.race }}</p>
+                  </ion-item>
+              </ion-list>
+          </div>
+      </div>
+      <div class="card">
+          <ion-item class="item-divider">
+              Professions
+          </ion-item>
+          <div>
+              <ion-list>
+                  <ion-item ng-repeat="prof in vm.character.crafting">
+                      <h2>{{prof.discipline}}</h2>
+                      <p>{{prof.rating}}</p>
+                  </ion-item>
+              </ion-list>
+          </div>
+      </div>
     </ion-content>
 </ion-view>
