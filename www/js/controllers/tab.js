@@ -5,8 +5,8 @@
     .module('app.controllers')
     .controller('TabCtrl', TabCtrl);
 
-  TabCtrl.$inject = ['$scope', '$rootScope', '$ionicSideMenuDelegate', '$ionicLoading', 'GW2API', 'PersistenceFW'];
-  function TabCtrl($scope, $rootScope, $ionicSideMenuDelegate, $ionicLoading, GW2API, PersistenceFW) {
+  TabCtrl.$inject = ['$scope', '$rootScope', '$ionicSideMenuDelegate', '$ionicLoading', 'GW2API'];
+  function TabCtrl($scope, $rootScope, $ionicSideMenuDelegate, $ionicLoading, GW2API) {
     var vm = this;
     
     activate();

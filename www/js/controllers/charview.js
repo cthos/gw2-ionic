@@ -19,8 +19,7 @@
       });
 
       GW2API.api.getCharacters($stateParams.charname).then(function (character) {
-        $scope.character = character;
-        console.log(character);
+        vm.character = character;
         $ionicLoading.hide();
       });
     }

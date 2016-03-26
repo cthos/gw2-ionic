@@ -26,8 +26,8 @@ angular.module('app.controllers', ['ionic']);
     .module('app.controllers')
     .controller('CharCtrl', CharCtrl);
 
-  CharCtrl.$inject = ['$scope', '$ionicLoading'];
-  function CharCtrl(dependency1) {
+  CharCtrl.$inject = ['$scope', '$ionicLoading', 'GW2API'];
+  function CharCtrl($scope, $ionicLoading, GW2API) {
     var vm = this;
     
     activate();
@@ -38,10 +38,10 @@ angular.module('app.controllers', ['ionic']);
       $ionicLoading.show({
         template : 'Getting Characters...'
       });
-      $scope.characters = [];
+      vm.characters = [];
 
       GW2API.api.getCharacters().then(function (characters) {
-        $scope.characters = characters;
+        vm.characters = characters;
         $ionicLoading.hide();
       }).catch(function (err) {
         $ionicLoading.hide();
@@ -70,8 +70,7 @@ angular.module('app.controllers', ['ionic']);
       });
 
       GW2API.api.getCharacters($stateParams.charname).then(function (character) {
-        $scope.character = character;
-        console.log(character);
+        vm.character = character;
         $ionicLoading.hide();
       });
     }
@@ -84,8 +83,8 @@ angular.module('app.controllers', ['ionic']);
     .module('app.controllers')
     .controller('PVECtrl', PVECtrl);
 
-  PVECtrl.$inject = ['$scope', 'GW2API', 'PersistenceFW'];
-  function PVECtrl($scope, GW2API, PersistenceFW) {
+  PVECtrl.$inject = ['$scope', 'GW2API'];
+  function PVECtrl($scope, GW2API) {
     var vm = this;
     
 
@@ -95,28 +94,16 @@ angular.module('app.controllers', ['ionic']);
 
     function activate() { 
       if (window.localStorage['gw2-completed-events']) {
-        //console.debug(JSON.parse(window.localStorage['gw2-completed-events']).events);
-        $scope.events = JSON.parse(window.localStorage['gw2-completed-events']).events;
+        vm.events = JSON.parse(window.localStorage['gw2-completed-events']).events;
       } else {
-        $scope.events = {};
+        vm.events = {};
       }
 
-      PersistenceFW.getSyncStatus().then(function (syncId) {
-        if (PersistenceFW.currentSyncId < syncId) {
-          PersistenceFW.syncDown().then(function (data) {
-            console.log(data);
-            $scope.events;
-          });
-        }
-      }).catch(function (fail) {
-
-      });
-
-      $scope.eventChanged = function (ev) {
+      vm.eventChanged = function (ev) {
         var evs = [];
-        console.log($scope.events);
-        for (var evid in $scope.events) {
-          if ($scope.events[evid]) {
+        console.log(vm.events);
+        for (var evid in vm.events) {
+          if (vm.events[evid]) {
             evs.push({id : evid});
           }
         }
@@ -124,20 +111,14 @@ angular.module('app.controllers', ['ionic']);
         window.localStorage['gw2-completed-events'] = JSON.stringify({
           // TODO: Make that work.
           date : '',
-          events : $scope.events
-        });
-
-        PersistenceFW.syncUp(evs).then(function (res) {
-          console.log(res);
-        }).catch(function (err) {
-          console.log(err);
+          events : vm.events
         });
       };
       $scope.$parent.$watch('achievements', function (newVal) {
         if (!newVal) {
           return;
         }
-        $scope.pve = $scope.$parent.achievements.pve;
+        vm.pve = $scope.$parent.achievements.pve;
       });
     }
   }
@@ -162,7 +143,7 @@ angular.module('app.controllers', ['ionic']);
         if (!newVal) {
           return;
         }
-        $scope.pvp = $scope.$parent.achievements.pvp;
+        vm.pvp = $scope.$parent.achievements.pvp;
       });
      }
   }
@@ -184,10 +165,10 @@ angular.module('app.controllers', ['ionic']);
     ////////////////
 
     function activate() { 
-      $scope.settings = {
+      vm.settings = {
         apiKey: GW2API.api.getAPIKey()
       };
-      $scope.$watch('settings.apiKey', function (newVal) {
+      $scope.$watch('vm.settings.apiKey', function (newVal) {
         GW2API.api.setAPIKey(newVal);
       });
     }
@@ -200,8 +181,8 @@ angular.module('app.controllers', ['ionic']);
     .module('app.controllers')
     .controller('TabCtrl', TabCtrl);
 
-  TabCtrl.$inject = ['$scope', '$rootScope', '$ionicSideMenuDelegate', '$ionicLoading', 'GW2API', 'PersistenceFW'];
-  function TabCtrl($scope, $rootScope, $ionicSideMenuDelegate, $ionicLoading, GW2API, PersistenceFW) {
+  TabCtrl.$inject = ['$scope', '$rootScope', '$ionicSideMenuDelegate', '$ionicLoading', 'GW2API'];
+  function TabCtrl($scope, $rootScope, $ionicSideMenuDelegate, $ionicLoading, GW2API) {
     var vm = this;
     
     activate();
@@ -240,7 +221,7 @@ angular.module('app.controllers', ['ionic']);
 
       GW2API.api.getWallet(true).then(function (w) {
         $ionicLoading.hide();
-        $scope.wallet = w;
+        vm.wallet = w;
       });
      }
   }
@@ -265,7 +246,7 @@ angular.module('app.controllers', ['ionic']);
         if (!newVal) {
           return;
         }
-        $scope.wvw = $scope.$parent.achievements.wvw;
+        vm.wvw = $scope.$parent.achievements.wvw;
       });
      }
   }

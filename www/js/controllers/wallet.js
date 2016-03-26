@@ -20,7 +20,7 @@
 
       GW2API.api.getWallet(true).then(function (w) {
         $ionicLoading.hide();
-        $scope.wallet = w;
+        vm.wallet = w;
       });
      }
   }
