@@ -26,6 +26,12 @@ gulp.task('sass', function(done) {
     .on('end', done);
 });
 
+gulp.task('controllers', function () {
+  return gulp.src('./www/js/controllers/**/*.js')
+    .pipe(concat('controllers.js'))
+    .pipe(gulp.dest('./www/js/'));
+});
+
 gulp.task('watch', function() {
   gulp.watch(paths.sass, ['sass']);
 });
