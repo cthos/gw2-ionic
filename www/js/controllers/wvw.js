@@ -18,7 +18,7 @@
         if (!newVal) {
           return;
         }
-        $scope.wvw = $scope.$parent.achievements.wvw;
+        vm.wvw = $scope.$parent.achievements.wvw;
       });
      }
   }

@@ -18,7 +18,7 @@
         if (!newVal) {
           return;
         }
-        $scope.pvp = $scope.$parent.achievements.pvp;
+        vm.pvp = $scope.$parent.achievements.pvp;
       });
      }
   }

@@ -5,8 +5,8 @@
     .module('app.controllers')
     .controller('CharCtrl', CharCtrl);
 
-  CharCtrl.$inject = ['$scope', '$ionicLoading'];
-  function CharCtrl(dependency1) {
+  CharCtrl.$inject = ['$scope', '$ionicLoading', 'GW2API'];
+  function CharCtrl($scope, $ionicLoading, GW2API) {
     var vm = this;
     
     activate();
@@ -17,10 +17,10 @@
       $ionicLoading.show({
         template : 'Getting Characters...'
       });
-      $scope.characters = [];
+      vm.characters = [];
 
       GW2API.api.getCharacters().then(function (characters) {
-        $scope.characters = characters;
+        vm.characters = characters;
         $ionicLoading.hide();
       }).catch(function (err) {
         $ionicLoading.hide();

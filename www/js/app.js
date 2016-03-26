@@ -55,7 +55,7 @@ angular.module('starter', ['ionic', 'app.controllers', 'starter.services'])
     views: {
       'tab-pve': {
         templateUrl: 'templates/tab-pve.html',
-        controller: 'PVECtrl'
+        controller: 'PVECtrl as vm'
       }
     }
   })
@@ -65,7 +65,7 @@ angular.module('starter', ['ionic', 'app.controllers', 'starter.services'])
       views: {
         'tab-pvp': {
           templateUrl: 'templates/tab-pvp.html',
-          controller: 'PVPCtrl'
+          controller: 'PVPCtrl as vm'
         }
       }
     })
@@ -74,7 +74,7 @@ angular.module('starter', ['ionic', 'app.controllers', 'starter.services'])
       views: {
         'tab-chats': {
           templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
+          controller: 'ChatDetailCtrl as vm'
         }
       }
     })
@@ -84,7 +84,7 @@ angular.module('starter', ['ionic', 'app.controllers', 'starter.services'])
     views: {
       'tab-wvw': {
         templateUrl: 'templates/tab-wvw.html',
-        controller: 'WVWCtrl'
+        controller: 'WVWCtrl as vm'
       }
     }
   })
@@ -92,28 +92,28 @@ angular.module('starter', ['ionic', 'app.controllers', 'starter.services'])
   .state('characters', {
     url: '/characters',
     templateUrl : 'templates/characters.html',
-    controller : 'CharCtrl',
+    controller : 'CharCtrl as vm',
     parent : 'app'
   })
 
   .state('character-detail', {
     url: '/character/{charname}',
     templateUrl : 'templates/character-detail.html',
-    controller : 'CharacterViewCtrl',
+    controller : 'CharacterViewCtrl as vm',
     parent : 'app'
   })
 
   .state('wallet', {
     url : '/wallet',
     templateUrl : 'templates/wallet.html',
-    controller : 'WalletCtrl',
+    controller : 'WalletCtrl as vm',
     parent : 'app'
   })
 
   .state('settings', {
     url: '/settings',
     templateUrl : 'templates/settings.html',
-    controller : 'SettingsCtrl',
+    controller : 'SettingsCtrl as vm',
     parent : 'app'
   });
 

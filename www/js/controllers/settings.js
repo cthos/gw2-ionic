@@ -15,10 +15,10 @@
     ////////////////
 
     function activate() { 
-      $scope.settings = {
+      vm.settings = {
         apiKey: GW2API.api.getAPIKey()
       };
-      $scope.$watch('settings.apiKey', function (newVal) {
+      $scope.$watch('vm.settings.apiKey', function (newVal) {
         GW2API.api.setAPIKey(newVal);
       });
     }
