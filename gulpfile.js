@@ -11,7 +11,7 @@ var paths = {
   sass: ['./scss/**/*.scss']
 };
 
-gulp.task('default', ['sass']);
+gulp.task('default', ['sass', 'controllers', 'services']);
 
 gulp.task('sass', function(done) {
   gulp.src('./scss/ionic.app.scss')
@@ -29,6 +29,12 @@ gulp.task('sass', function(done) {
 gulp.task('controllers', function () {
   return gulp.src('./www/js/controllers/**/*.js')
     .pipe(concat('controllers.js'))
+    .pipe(gulp.dest('./www/js/'));
+});
+
+gulp.task('services', function () {
+  return gulp.src('./www/js/services/**/*.js')
+    .pipe(concat('services.js'))
     .pipe(gulp.dest('./www/js/'));
 });
 
