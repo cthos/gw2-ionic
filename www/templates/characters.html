@@ -1,6 +1,11 @@
 <ion-view view-title="Character List">
   <ion-content class="padding">
-    <ion-list class="character-list list">
+    <div class="card" ng-if="vm.error">
+      <div class="item">
+        {{ vm.error }}
+      </div>
+    </div>
+    <ion-list ng-if="vm.characters" class="character-list list">
       <ion-item class="item-icon-left" ng-repeat="char in vm.characters" href="#character/{{char}}">
         <i class="icon ion-android-person"></i>
         {{char}}

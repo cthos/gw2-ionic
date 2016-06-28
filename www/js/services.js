@@ -65,8 +65,11 @@ angular.module('app.services', []);
             var that = this;
             return api.getTokenInfo().then(function (info) {
               that.tokenPerms = info.permissions;
+              return !!(this.tokenPerms[permission]);
             });
           }
+          
+          return !!(this.tokenPerms[permission]);
         }
       };
     })

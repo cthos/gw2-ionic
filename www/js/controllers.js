@@ -35,6 +35,19 @@ angular.module('app.controllers', ['ionic']);
     ////////////////
 
     function activate() {
+      console.log(GW2API.api.getAPIKey());
+      if (!GW2API.api.getAPIKey()) {
+        vm.error = "Please set your API key in Settings";
+        return;
+      }
+      
+      if (!GW2API.tokenHasPermission('characters')) {
+        vm.error = "That token does not have 'characters' permission.";
+        return;
+      }
+      
+      vm.error = null;
+      
       $ionicLoading.show({
         template : 'Getting Characters...'
       });
