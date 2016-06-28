@@ -1,15 +1,20 @@
 <ion-view view-title="Account Wallet">
-    <ion-content>
-        <div class="card" ng-repeat="currency in vm.wallet">
-            <div class="item item-divider">
-                {{currency.name}}
-            </div>
-            <ion-item class="item-avatar">
-                <img src="{{currency.icon}}" />
-                <p>
-                    {{currency.value}}
-                </p>
-            </ion-item>
-        </div>
-    </ion-content>
+  <ion-content>
+    <div class="card" ng-if="vm.error">
+      <div class="item">
+        {{ vm.error }}
+      </div>
+    </div>
+    <div class="card" ng-if="vm.wallet" ng-repeat="currency in vm.wallet">
+      <div class="item item-divider">
+        {{currency.name}}
+      </div>
+      <ion-item class="item-avatar">
+        <img src="{{currency.icon}}" />
+        <p>
+          {{currency.value}}
+        </p>
+      </ion-item>
+    </div>
+  </ion-content>
 </ion-view>
