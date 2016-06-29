@@ -41,6 +41,7 @@ gulp.task('services', function () {
 gulp.task('watch', function() {
   gulp.watch(paths.sass, ['sass']);
   gulp.watch('./www/js/controllers/**/*.js', ['controllers']);
+  gulp.watch('./www/js/services/**/*.js', ['services']);
 });
 
 gulp.task('install', ['git-check'], function() {
