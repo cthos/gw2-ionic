@@ -11,6 +11,9 @@
         <h4>{{env}}</h4>
         <div class="spec-details" ng-repeat="s in spec track by $index">
           <h5>{{s.name}}</h5>
+          <div style="background-image: url('{{s.background}}'); background-position: bottom left;">
+              <img src="{{s.icon}}" />
+          </div>
         </div>
       </div>
      
