@@ -61,6 +61,9 @@
       var traitIds = [];
       for (var env in vm.character.specializations) {
         for (var i = 0; i < vm.character.specializations[env].length; i++) {
+           if (!vm.character.specializations[env][i]) {
+            continue;
+          }
           traitIds = traitIds.concat(vm.character.specializations[env][i].traits);
         }
       }
@@ -68,6 +71,9 @@
       return GW2API.api.getTraits(traitIds).then(function (traits) {
         for (var env in vm.character.specializations) {
           for (var i = 0; i < vm.character.specializations[env].length; i++) {
+            if (!vm.character.specializations[env][i]) {
+              continue;
+            }
             for (var j = 0; j < vm.character.specializations[env][i].traits.length; j++) {
               traits.forEach(function (trait) {
                 if (!vm.character.specializations[env][i].traits[j]) {
