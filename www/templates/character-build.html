@@ -7,7 +7,13 @@
       <div class="item item-divider">
         Specializations
       </div>
-      
+      <div class="env" ng-repeat="(env, spec) in vm.character.specializations">
+        <h4>{{env}}</h4>
+        <div class="spec-details" ng-repeat="s in spec track by $index">
+          <h5>{{s.name}}</h5>
+        </div>
+      </div>
+     
     </div>
   </ion-content>
 </ion-view>

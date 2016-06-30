@@ -42,7 +42,36 @@ angular.module('app.controllers', ['ionic']);
       
       GW2API.api.getCharacters($stateParams.charname).then(function (character) {
         vm.character = character;
+        console.log(character.specializations);
         $ionicLoading.hide();
+      })
+      .then(function () {
+        loadSpecializations();
+      })
+      .catch(function (e) {
+        console.log(e);
+      });
+    }
+    
+    function loadSpecializations()
+    {
+      console.log("Loading Specs");
+      console.log(vm.character.profession);
+      return GW2API.api.getProfessionSpecializations(vm.character.profession).then(function (specializations) {
+        console.log(specializations);
+        for (var env in vm.character.specializations) {
+          for (var i = 0; i < vm.character.specializations[env].length; i++) {
+            specializations.forEach(function (spec) {
+              if (spec.id != vm.character.specializations[env][i].id) {
+                return;
+              }
+              
+              Object.assign(vm.character.specializations[env][i], spec);
+            });
+          }
+        }
+        console.log("Specs normalized");
+        console.log(vm.character.specializations);
       });
     }
   }
