@@ -215,9 +215,10 @@ angular.module('app.controllers', ['ionic']);
     .module('app.controllers')
     .controller('CharacterEquipmentCtrl', CharacterEquipmentCtrl);
 
-  CharacterEquipmentCtrl.$inject = ['GW2API', '$stateParams', '$scope', '$ionicLoading'];
-  function CharacterEquipmentCtrl(GW2API, $stateParams, $scope, $ionicLoading) {
+  CharacterEquipmentCtrl.$inject = ['GW2API', '$stateParams', '$scope', '$ionicLoading', '$ionicPopup'];
+  function CharacterEquipmentCtrl(GW2API, $stateParams, $scope, $ionicLoading, $ionicPopup) {
     var vm = this;
+    vm.eqPopup = eqPopup;
 
     activate();
 
@@ -232,7 +233,6 @@ angular.module('app.controllers', ['ionic']);
       {
         $scope.$evalAsync(function () {
           vm.character = character;
-          console.log(character.equipment);
           loadEquipment();
         });
       }).catch(function (e)
@@ -248,6 +248,18 @@ angular.module('app.controllers', ['ionic']);
         $scope.$evalAsync(function () {
           vm.character.equipment = equipment;
         });
+      });
+    }
+    
+    function eqPopup(eq)
+    {
+      $scope.eq = eq;
+      console.log(eq);
+      
+      var myPopup = $ionicPopup.alert({
+        templateUrl: "templates/popups/equipment-detail.html",
+        scope: $scope,
+        title: eq.name
       });
     }
   }

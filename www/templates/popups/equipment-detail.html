@@ -1,0 +1,16 @@
+<div>
+  <table>
+    <div class="row">
+      <span class="col">Slot</span>
+      <span class="col">{{eq.slot}}</span>
+    </div>
+    <div class="row">
+      <span class="col">Defense</span>
+      <span class="col">{{eq.details.defense || "N/A"}}</span>
+    </div>
+    <div class="row" ng-repeat="attr in eq.details.infix_upgrade.attributes">
+      <span class="col">{{attr.attribute}}</span>
+      <span class="col">{{attr.modifier}}</span>
+    </div>
+  </table>
+</div>
