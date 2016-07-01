@@ -72,7 +72,6 @@ angular.module('app.controllers', ['ionic']);
     {
       return GW2API.api.getProfessionSpecializations(vm.character.profession).then(function (specializations)
       {
-        console.log(specializations);
         for (var env in vm.character.specializations) {
           for (var i = 0; i < vm.character.specializations[env].length; i++) {
             specializations.forEach(function (spec)
@@ -88,8 +87,6 @@ angular.module('app.controllers', ['ionic']);
             });
           }
         }
-        console.log("Specs normalized");
-        console.log(vm.character.specializations);
       }).catch(function (e)
       {
         console.log(e);
@@ -207,6 +204,50 @@ angular.module('app.controllers', ['ionic']);
       GW2API.api.getCharacters($stateParams.charname).then(function (character) {
         vm.character = character;
         $ionicLoading.hide();
+      });
+    }
+  }
+})();
+(function() {
+'use strict';
+
+  angular
+    .module('app.controllers')
+    .controller('CharacterEquipmentCtrl', CharacterEquipmentCtrl);
+
+  CharacterEquipmentCtrl.$inject = ['GW2API', '$stateParams', '$scope', '$ionicLoading'];
+  function CharacterEquipmentCtrl(GW2API, $stateParams, $scope, $ionicLoading) {
+    var vm = this;
+
+    activate();
+
+    ////////////////
+
+    function activate() {
+      $ionicLoading.show({
+        template: 'Loading...'
+      });
+
+      GW2API.api.getCharacters($stateParams.charname).then(function (character)
+      {
+        $scope.$evalAsync(function () {
+          vm.character = character;
+          console.log(character.equipment);
+          loadEquipment();
+        });
+      }).catch(function (e)
+        {
+          console.log(e);
+        });
+    }
+    
+    function loadEquipment()
+    {
+      return GW2API.api.getDeeperInfo(GW2API.api.getItems, vm.character.equipment).then(function (equipment) {
+        $ionicLoading.hide();
+        $scope.$evalAsync(function () {
+          vm.character.equipment = equipment;
+        });
       });
     }
   }

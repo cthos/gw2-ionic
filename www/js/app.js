@@ -109,6 +109,13 @@ angular.module('starter', ['ionic', 'app.controllers', 'app.services'])
     controller : 'CharacterBuildCtrl as vm',
     parent : 'app'
   })
+  
+  .state('character-equipment', {
+    url: '/character/{charname}/equipment',
+    templateUrl : 'templates/character-equipment.html',
+    controller : 'CharacterEquipmentCtrl as vm',
+    parent : 'app'
+  })
 
   .state('wallet', {
     url : '/wallet',

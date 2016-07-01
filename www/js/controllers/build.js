@@ -51,7 +51,6 @@
     {
       return GW2API.api.getProfessionSpecializations(vm.character.profession).then(function (specializations)
       {
-        console.log(specializations);
         for (var env in vm.character.specializations) {
           for (var i = 0; i < vm.character.specializations[env].length; i++) {
             specializations.forEach(function (spec)
@@ -67,8 +66,6 @@
             });
           }
         }
-        console.log("Specs normalized");
-        console.log(vm.character.specializations);
       }).catch(function (e)
       {
         console.log(e);

@@ -1,0 +1,19 @@
+<ion-view>
+  <ion-nav-title>
+    {{ vm.character.name }} - Equipment
+  </ion-nav-title>
+  <ion-content>
+    <div class="card">
+      <div class="item item-divider">
+        Gear
+      </div>
+      <div class="env" ng-repeat="eq in vm.character.equipment">
+        <h3>{{eq.slot}}</h3>
+        <div>
+          <img ng-src="{{eq.icon}}" />
+          <p>{{eq.name}}</p>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
