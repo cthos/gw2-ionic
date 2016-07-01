@@ -72,21 +72,24 @@ angular.module('app.controllers', ['ionic']);
     {
       return GW2API.api.getProfessionSpecializations(vm.character.profession).then(function (specializations)
       {
-        for (var env in vm.character.specializations) {
-          for (var i = 0; i < vm.character.specializations[env].length; i++) {
-            specializations.forEach(function (spec)
-            {
-              if (!vm.character.specializations[env][i]) {
-                return;
-              }
-              if (spec.id != vm.character.specializations[env][i].id) {
-                return;
-              }
+        $scope.$evalAsync(function ()
+        {
+          for (var env in vm.character.specializations) {
+            for (var i = 0; i < vm.character.specializations[env].length; i++) {
+              specializations.forEach(function (spec)
+              {
+                if (!vm.character.specializations[env][i]) {
+                  return;
+                }
+                if (spec.id != vm.character.specializations[env][i].id) {
+                  return;
+                }
 
-              Object.assign(vm.character.specializations[env][i], spec);
-            });
+                Object.assign(vm.character.specializations[env][i], spec);
+              });
+            }
           }
-        }
+        });
       }).catch(function (e)
       {
         console.log(e);
