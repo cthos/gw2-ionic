@@ -16,3 +16,43 @@
   top: -28px;
   right: -40px;
 }
+
+.inventory-icon {
+  height: 64px;
+  width: 64px;
+  border: 4px solid;
+}
+
+.item-empty-slot {
+  height: 64px;
+  width: 64px;
+  border: 1px solid black;
+}
+
+.ascended-border {
+  border-color: #fb3e8d;
+}
+
+.legendary-border {
+  border-color: #4C139D;
+}
+
+.masterwork-border {
+  border-color: #1a9306;
+}
+
+.exotic-border {
+  border-color: #ffa405;
+}
+
+.rare-border {
+  border-color: #fcd00b;
+}
+
+.fine-border {
+  border-color: #62A4DA;
+}
+
+.common-border {
+  border-color: black;
+}
