@@ -6,9 +6,9 @@
       <div class="card" ng-repeat="bag in vm.character.bags">
         <div class="item item-divider">{{bag.name}}</div>
         <div class="row" style="flex-wrap: wrap"  ng-click="">
-          <div class="col" ng-repeat="item in bag.inventory">
+          <div class="col" ng-repeat="item in bag.inventory track by $index" ng-click="vm.itemPopup(item)">
             <img ng-if="item" src="{{item.icon}}" alt="">
-            <p>{{item.count}}x {{item.name}}</p>
+            <span class="inventory-count">{{item.count}}</span>
           </div>
         </div>
       </div>

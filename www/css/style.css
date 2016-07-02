@@ -2,3 +2,17 @@
 .bullet-list {
   list-style-type: disc;
 }
+
+.inventory-count {
+  border: 1px solid black;
+  border-radius: 50%;
+  display: inline-block;
+  width: 24px;
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  position: relative;
+  top: -28px;
+  right: -40px;
+}

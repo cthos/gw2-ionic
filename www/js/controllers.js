@@ -253,7 +253,6 @@ angular.module('app.controllers', ['ionic']);
     function eqPopup(eq)
     {
       $scope.eq = eq;
-      console.log(eq);
       
       var myPopup = $ionicPopup.alert({
         templateUrl: "templates/popups/equipment-detail.html",
@@ -270,9 +269,10 @@ angular.module('app.controllers', ['ionic']);
     .module('app.controllers')
     .controller('CharacterInventoryCtrl', CharacterInventoryCtrl);
 
-  CharacterInventoryCtrl.$inject = ['GW2API', '$stateParams', '$scope'];
-  function CharacterInventoryCtrl(GW2API, $stateParams, $scope) {
+  CharacterInventoryCtrl.$inject = ['GW2API', '$stateParams', '$scope', '$ionicPopup'];
+  function CharacterInventoryCtrl(GW2API, $stateParams, $scope, $ionicPopup) {
     var vm = this;
+    vm.itemPopup = itemPopup;
 
     activate();
 
@@ -302,12 +302,20 @@ angular.module('app.controllers', ['ionic']);
         Promise.all(promises).then(function () {
           // Force a redraw
           $scope.$evalAsync(function () {
-            console.log("Redraw.");
             console.log(vm.character.bags);
           });
         });
       })
+    }
+    
+    function itemPopup(i) {
+      $scope.currentItem = i;
       
+       var myPopup = $ionicPopup.alert({
+        templateUrl: "templates/popups/item-detail.html",
+        scope: $scope,
+        title: i.name
+      });
     }
   }
 })();

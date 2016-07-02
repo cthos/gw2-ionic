@@ -40,7 +40,6 @@
     function eqPopup(eq)
     {
       $scope.eq = eq;
-      console.log(eq);
       
       var myPopup = $ionicPopup.alert({
         templateUrl: "templates/popups/equipment-detail.html",
