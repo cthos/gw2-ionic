@@ -1,0 +1,16 @@
+<ion-view>
+  <ion-nav-title>
+    {{ vm.character.name }} - Inventory
+  </ion-nav-title>
+  <ion-content>
+      <div class="card" ng-repeat="bag in vm.character.bags">
+        <div class="item item-divider">{{bag.name}}</div>
+        <div class="row" style="flex-wrap: wrap"  ng-click="">
+          <div class="col" ng-repeat="item in bag.inventory">
+            <img ng-if="item" src="{{item.icon}}" alt="">
+            <p>{{item.count}}x {{item.name}}</p>
+          </div>
+        </div>
+      </div>
+  </ion-content>
+</ion-view>

@@ -19,25 +19,21 @@
         template: 'Loading...'
       });
 
-      GW2API.api.getCharacters($stateParams.charname).then(function (character)
-      {
+      GW2API.api.getCharacters($stateParams.charname).then(function (character) {
         $scope.$evalAsync(function () {
           vm.character = character;
           loadEquipment();
         });
-      }).catch(function (e)
-        {
+      }).catch(function (e) {
           console.log(e);
-        });
+      });
     }
     
     function loadEquipment()
     {
       return GW2API.api.getDeeperInfo(GW2API.api.getItems, vm.character.equipment).then(function (equipment) {
         $ionicLoading.hide();
-        $scope.$evalAsync(function () {
-          vm.character.equipment = equipment;
-        });
+        $scope.$evalAsync(function () {});
       });
     }
     
