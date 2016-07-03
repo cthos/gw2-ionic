@@ -123,6 +123,13 @@ angular.module('starter', ['ionic', 'app.controllers', 'app.services'])
     controller : 'CharacterInventoryCtrl as vm',
     parent : 'app'
   })
+  
+  .state('character-recipies', {
+    url: '/character/{charname}/recipies',
+    templateUrl : 'templates/character-recipies.html',
+    controller : 'CharacterInventoryCtrl as vm',
+    parent : 'app'
+  })
 
   .state('wallet', {
     url : '/wallet',

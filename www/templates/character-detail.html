@@ -21,6 +21,9 @@
             <h2>Race</h2>
             <p>{{ vm.character.race }}</p>
           </ion-item>
+          <ion-item>
+            <h2>Gender</h2>
+            <p>{{ vm.character.gender }}</p>
         </ion-list>
       </div>
     </div>
@@ -39,12 +42,24 @@
     </div>
     <div class="card">
       <ion-item class="item-divider">
+        Statistics
+      </ion-item>
+      <div>
+        <ion-item>
+          <h2>Number of Deaths</h2>
+          <p>{{ vm.character.deaths }}</p>
+        </ion-item>
+      </div>
+    </div>
+    <div class="card">
+      <ion-item class="item-divider">
         Navigation
       </ion-item>
       <div class="list">
           <a class="item" href="#character/{{vm.character.name}}/build">Build</a>
           <a class="item" href="#character/{{vm.character.name}}/equipment">Equipment</a>
           <a class="item" href="#character/{{vm.character.name}}/inventory">Inventory</a>
+          <a class="item" href="#character/{{vm.character.name}}/recipies">Recipies</a>
       </div>
     </div>
   </ion-content>
