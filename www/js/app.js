@@ -127,7 +127,7 @@ angular.module('starter', ['ionic', 'app.controllers', 'app.services'])
   .state('character-recipies', {
     url: '/character/{charname}/recipies',
     templateUrl : 'templates/character-recipies.html',
-    controller : 'CharacterInventoryCtrl as vm',
+    controller : 'CharacterRecipiesCtrl as vm',
     parent : 'app'
   })
 
