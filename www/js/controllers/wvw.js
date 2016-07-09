@@ -1,5 +1,5 @@
-(function() {
-'use strict';
+(function () {
+  'use strict';
 
   angular
     .module('app.controllers')
@@ -8,7 +8,8 @@
   WVWCtrl.$inject = ['$scope'];
   function WVWCtrl($scope) {
     var vm = this;
-    
+    vm.requestDetails = requestDetails;
+
     activate();
 
     ////////////////
@@ -20,6 +21,10 @@
         }
         vm.wvw = $scope.$parent.achievements.wvw;
       });
-     }
+    }
+
+    function requestDetails(ach) {
+      $scope.$emit('ach-details-req', ach);
+    }
   }
 })();

@@ -1,7 +1,7 @@
 <ion-view view-title="Daily PVP">
   <ion-content class="padding">
     <ul class="daily-pvp list">
-      <li class="item item-icon-left" ng-repeat="ach in vm.pvp">
+      <li class="item item-icon-left" ng-repeat="ach in vm.pvp" ng-click="vm.requestDetails(ach)">
         <i class="icon ion-android-globe"></i>
         {{ach.name}}
       </li>

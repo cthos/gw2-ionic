@@ -346,7 +346,7 @@ angular.module('app.controllers', ['ionic']);
   PVECtrl.$inject = ['$scope', 'GW2API'];
   function PVECtrl($scope, GW2API) {
     var vm = this;
-    
+    vm.requestDetails = requestDetails;
 
     activate();
 
@@ -381,10 +381,14 @@ angular.module('app.controllers', ['ionic']);
         vm.pve = $scope.$parent.achievements.pve;
       });
     }
+    
+    function requestDetails(ach) {
+      $scope.$emit('ach-details-req', ach);
+    }
   }
 })();
-(function() {
-'use strict';
+(function () {
+  'use strict';
 
   angular
     .module('app.controllers')
@@ -393,7 +397,8 @@ angular.module('app.controllers', ['ionic']);
   PVPCtrl.$inject = ['$scope'];
   function PVPCtrl($scope) {
     var vm = this;
-    
+    vm.requestDetails = requestDetails;
+
     activate();
 
     ////////////////
@@ -405,7 +410,11 @@ angular.module('app.controllers', ['ionic']);
         }
         vm.pvp = $scope.$parent.achievements.pvp;
       });
-     }
+    }
+
+    function requestDetails(ach) {
+      $scope.$emit('ach-details-req', ach);
+    }
   }
 })();
 (function() {
@@ -473,27 +482,40 @@ angular.module('app.controllers', ['ionic']);
     }
   }
 })();
-(function() {
-'use strict';
+(function () {
+  'use strict';
 
   angular
     .module('app.controllers')
     .controller('TabCtrl', TabCtrl);
 
-  TabCtrl.$inject = ['$scope', '$rootScope', '$ionicSideMenuDelegate', '$ionicLoading', 'GW2API'];
-  function TabCtrl($scope, $rootScope, $ionicSideMenuDelegate, $ionicLoading, GW2API) {
+  TabCtrl.$inject = ['$scope', '$rootScope', '$ionicSideMenuDelegate', '$ionicLoading', '$ionicPopup','GW2API'];
+  function TabCtrl($scope, $rootScope, $ionicSideMenuDelegate, $ionicLoading, $ionicPopup, GW2API) {
     var vm = this;
-    
+    vm.showRequirementsPopup = showRequirementsPopup;
+
     activate();
 
-    function activate() { 
+    function activate() {
       $ionicLoading.show({
         template: "Loading Data..."
       });
+      
+      $scope.$on('ach-details-req', vm.showRequirementsPopup);
 
       GW2API.reload().then(function (achs) {
         $scope.achievements = achs;
         $ionicLoading.hide();
+      });
+    }
+
+    function showRequirementsPopup(ev, ach) {
+       $scope.ach = ach;
+      
+       var myPopup = $ionicPopup.alert({
+        templateUrl: "templates/popups/achievement-detail.html",
+        scope: $scope,
+        title: ach.name
       });
     }
   }
@@ -537,8 +559,8 @@ angular.module('app.controllers', ['ionic']);
      }
   }
 })();
-(function() {
-'use strict';
+(function () {
+  'use strict';
 
   angular
     .module('app.controllers')
@@ -547,7 +569,8 @@ angular.module('app.controllers', ['ionic']);
   WVWCtrl.$inject = ['$scope'];
   function WVWCtrl($scope) {
     var vm = this;
-    
+    vm.requestDetails = requestDetails;
+
     activate();
 
     ////////////////
@@ -559,6 +582,10 @@ angular.module('app.controllers', ['ionic']);
         }
         vm.wvw = $scope.$parent.achievements.wvw;
       });
-     }
+    }
+
+    function requestDetails(ach) {
+      $scope.$emit('ach-details-req', ach);
+    }
   }
 })();
