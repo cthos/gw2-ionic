@@ -6,9 +6,10 @@
       </div>
     </div>
     <ion-list ng-if="vm.characters" class="character-list list">
-      <ion-item class="item-icon-left" ng-repeat="char in vm.characters" href="#character/{{char}}">
-        <i class="icon ion-android-person"></i>
-        {{char}}
+      <ion-item class="item item-thumbnail-left" ng-repeat="char in vm.characters" href="#character/{{char.name}}">
+        <img ng-src="{{vm.professionsMap[char.profession].icon_big}}" />
+        <div><strong>{{char.name}}</strong></div>
+        <div>Level {{char.level}} {{char.profession}}</div>
       </ion-item>
     </ion-list>
   </ion-content>
