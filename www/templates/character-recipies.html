@@ -1,0 +1,10 @@
+<ion-view>
+  <ion-nav-title>
+    {{ vm.character.name }} - Recipes Known
+  </ion-nav-title>
+  <ion-content>
+      <ion-item class="card" collection-repeat="recipe in vm.recipes" item-height="50px">
+        {{ vm.outputItems[recipe.output_item_id].name }}
+      </div>
+  </ion-content>
+</ion-view>
