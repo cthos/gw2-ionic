@@ -46,10 +46,8 @@
       vm.characters.forEach(function (c) {
         professions.push(c.profession);
       });
-      console.log(professions);
       GW2API.api.getOneOrMany('professions', professions, false).then(function (professionsMap) {
         professionsMap.forEach(function (prof) {
-          console.log(prof);
           vm.professionsMap[prof.id] = prof;
         });
         

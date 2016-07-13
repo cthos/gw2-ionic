@@ -3,8 +3,13 @@
     {{ vm.character.name }} - Recipes Known
   </ion-nav-title>
   <ion-content>
-      <ion-item class="card" collection-repeat="recipe in vm.recipes" item-height="50px">
+      <ion-item
+        class="card"
+        collection-repeat="recipe in vm.recipes"
+        item-height="50px"
+        ng-click="vm.showRecipeDetails(recipe)"
+      >
         {{ vm.outputItems[recipe.output_item_id].name }}
-      </div>
+      </ion-item>
   </ion-content>
 </ion-view>

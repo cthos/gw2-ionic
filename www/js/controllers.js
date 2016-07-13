@@ -189,10 +189,8 @@ angular.module('app.controllers', ['ionic']);
       vm.characters.forEach(function (c) {
         professions.push(c.profession);
       });
-      console.log(professions);
       GW2API.api.getOneOrMany('professions', professions, false).then(function (professionsMap) {
         professionsMap.forEach(function (prof) {
-          console.log(prof);
           vm.professionsMap[prof.id] = prof;
         });
         
@@ -424,11 +422,13 @@ angular.module('app.controllers', ['ionic']);
     .module('app.controllers')
     .controller('CharacterRecipiesCtrl', CharacterRecipiesCtrl);
 
-  CharacterRecipiesCtrl.$inject = ['GW2API', '$ionicLoading', '$stateParams', '$scope'];
-  function CharacterRecipiesCtrl(GW2API, $ionicLoading, $stateParams, $scope) {
+  CharacterRecipiesCtrl.$inject = ['GW2API', '$ionicLoading', '$stateParams', '$scope', '$ionicPopup'];
+  function CharacterRecipiesCtrl(GW2API, $ionicLoading, $stateParams, $scope, $ionicPopup) {
     var vm = this;
     vm.outputItems = {};
     vm.inputItems = {};
+
+    vm.showRecipeDetails = showRecipeDetails;
 
     activate();
 
@@ -477,8 +477,33 @@ angular.module('app.controllers', ['ionic']);
       });
     }
 
-    function loadInputItems() {
+    function loadIngredients(ingredients) {
+      return GW2API.api.getItems(ingredients);
+    }
 
+    function showRecipeDetails(recipe) {
+      $ionicLoading.show();
+      var loadgredients = [];
+      recipe.ingredients.forEach(function (i) {
+        loadgredients.push(i.item_id);
+      });
+
+      loadIngredients(loadgredients).then(function (ings) {
+        console.log(ings);
+
+        $scope.recipe = recipe;
+        $scope.ingredients = ings;
+
+        var myPopup = $ionicPopup.alert({
+          templateUrl: "templates/popups/recipe-detail.html",
+          scope: $scope,
+          title: vm.outputItems[recipe.output_item_id].name
+        });
+
+        $ionicLoading.hide();
+      }).catch(function (e) {
+        console.log(e);
+      });
     }
   }
 })();
