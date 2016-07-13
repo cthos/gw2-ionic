@@ -31,9 +31,18 @@
     }
     
     function loadRecipes() {
-      GW2API.api.getRecipes(vm.character.recipes).then(function (r) {
-        // TODO have to replace each recipie's output item with getItems() to get the name.
+      var outputItems = [];
+      GW2API.api.getDeeperInfo(GW2API.api.getRecipes, vm.character.recipes).then(function (r) {
+          r.forEach(function (rec) {
+            outputItems.push(rec.output_item_id);
+          });
+
+          console.log(outputItems);
       });
+    }
+
+    function loadOutputItems() {
+      
     }
   }
 })();
