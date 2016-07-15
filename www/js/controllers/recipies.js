@@ -72,10 +72,14 @@
       });
 
       loadIngredients(loadgredients).then(function (ings) {
-        console.log(ings);
+        var ingredients = {};
+
+        ings.forEach(function (i) {
+          ingredients[i.id] = i;
+        });
 
         $scope.recipe = recipe;
-        $scope.ingredients = ings;
+        $scope.ingredients = ingredients;
 
         var myPopup = $ionicPopup.alert({
           templateUrl: "templates/popups/recipe-detail.html",

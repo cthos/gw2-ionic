@@ -1,5 +1,9 @@
 <div>
-  <p>
-    {{currentItem.description || currentItem.details.description}}
-  </p>
+  <ion-list class="ingredient-list list">
+    <ion-item class="item item-thumbnail-left" ng-repeat="i in recipe.ingredients track by $index">
+      <img ng-src="{{ingredients[i.item_id].icon}}" />
+      <div><strong>{{ingredients[i.item_id].name}}</strong></div>
+      <div>x {{i.count}}</div>
+    </ion-item>
+  </ion-list>
 </div>
