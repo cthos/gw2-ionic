@@ -20,6 +20,14 @@ angular.module('starter', ['ionic', 'app.controllers', 'app.services'])
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    function onDeviceReady() {
+      if (window.cordova && window.cordova.InAppBrowser) {
+        window.open = window.cordova.InAppBrowser.open;
+      }
+    }
   });
 })
 .config(function ($sceDelegateProvider) {

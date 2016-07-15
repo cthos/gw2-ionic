@@ -9,7 +9,6 @@
   function PVECtrl($scope, GW2API) {
     var vm = this;
     vm.requestDetails = requestDetails;
-
     activate();
 
     ////////////////
@@ -43,7 +42,7 @@
         vm.pve = $scope.$parent.achievements.pve;
       });
     }
-    
+
     function requestDetails(ach) {
       $scope.$emit('ach-details-req', ach);
     }

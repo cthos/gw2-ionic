@@ -345,7 +345,6 @@ angular.module('app.controllers', ['ionic']);
   function PVECtrl($scope, GW2API) {
     var vm = this;
     vm.requestDetails = requestDetails;
-
     activate();
 
     ////////////////
@@ -379,7 +378,7 @@ angular.module('app.controllers', ['ionic']);
         vm.pve = $scope.$parent.achievements.pve;
       });
     }
-    
+
     function requestDetails(ach) {
       $scope.$emit('ach-details-req', ach);
     }
@@ -564,8 +563,14 @@ angular.module('app.controllers', ['ionic']);
       });
     }
 
+    function openWikiLink(wikiLink) {
+      console.log("llama");
+      window.open('http://wiki.guildwars2.com/wiki/' + escape(wikiLink), '_system');
+    }
+
     function showRequirementsPopup(ev, ach) {
        $scope.ach = ach;
+       $scope.openWikiLink = openWikiLink;
       
        var myPopup = $ionicPopup.alert({
         templateUrl: "templates/popups/achievement-detail.html",
