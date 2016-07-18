@@ -2,4 +2,9 @@
   <p>
     {{currentItem.description || currentItem.details.description}}
   </p>
+  <div class="link">
+    <a class="button button-stable" ng-click="$emit('wiki-intent', currentItem.name)">
+    Open Wiki
+    </a>
+  </div>
 </div>
