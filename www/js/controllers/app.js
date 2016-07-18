@@ -15,6 +15,16 @@
       $rootScope.toggleSide = function () {
         $ionicSideMenuDelegate.toggleRight();
       };
+
+      $scope.$on('wiki-intent', openWikiLink);
+    }
+
+    /**
+     * Listens for wiki-link events and triggers a window.open.
+     */
+    function openWikiLink(event, wikiLink)
+    {
+      window.open('http://wiki.guildwars2.com/wiki/' + escape(wikiLink), '_system');
     }
   }
 })();

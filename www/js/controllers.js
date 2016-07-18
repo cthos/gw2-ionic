@@ -16,6 +16,16 @@ angular.module('app.controllers', ['ionic']);
       $rootScope.toggleSide = function () {
         $ionicSideMenuDelegate.toggleRight();
       };
+
+      $scope.$on('wiki-intent', openWikiLink);
+    }
+
+    /**
+     * Listens for wiki-link events and triggers a window.open.
+     */
+    function openWikiLink(event, wikiLink)
+    {
+      window.open('http://wiki.guildwars2.com/wiki/' + escape(wikiLink), '_system');
     }
   }
 })();
@@ -564,14 +574,13 @@ angular.module('app.controllers', ['ionic']);
     }
 
     function openWikiLink(wikiLink) {
-      console.log("llama");
-      window.open('http://wiki.guildwars2.com/wiki/' + escape(wikiLink), '_system');
+      //$scope.$emit('');
+      //window.open('http://wiki.guildwars2.com/wiki/' + escape(wikiLink), '_system');
     }
 
     function showRequirementsPopup(ev, ach) {
-       $scope.ach = ach;
-       $scope.openWikiLink = openWikiLink;
-      
+      $scope.ach = ach;
+
        var myPopup = $ionicPopup.alert({
         templateUrl: "templates/popups/achievement-detail.html",
         scope: $scope,
