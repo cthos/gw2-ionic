@@ -1,0 +1,14 @@
+<ion-view>
+  <ion-nav-title>
+    Account Bank
+  </ion-nav-title>
+  <ion-content>
+    <div class="row" style="flex-wrap: wrap">
+      <div class="col col-20" ng-repeat="item in vm.bank track by $index" ng-click="vm.itemPopup(item)">
+        <img ng-if="item" class="inventory-icon {{item.rarity.toLowerCase()}}-border" src="{{item.icon}}" alt="">
+        <span ng-if="item" class="inventory-count">{{item.count}}</span>
+        <div ng-if="!item" class="item-empty-slot"></div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
