@@ -111,6 +111,13 @@ angular.module('starter', ['ionic', 'app.controllers', 'app.services'])
     parent : 'app'
   })
 
+  .state('materials', {
+    url: '/materials',
+    templateUrl : 'templates/materials.html',
+    controller : 'MaterialsCtrl as vm',
+    parent : 'app'
+  })
+
   .state('character-detail', {
     url: '/character/{charname}',
     templateUrl : 'templates/character-detail.html',
