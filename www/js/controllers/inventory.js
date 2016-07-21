@@ -37,9 +37,7 @@
         }
         Promise.all(promises).then(function () {
           // Force a redraw
-          $scope.$evalAsync(function () {
-            console.log(vm.character.bags);
-          });
+          $scope.$evalAsync(function () {});
         });
       })
     }

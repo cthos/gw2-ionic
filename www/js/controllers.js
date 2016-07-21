@@ -50,7 +50,6 @@ angular.module('app.controllers', ['ionic']);
       GW2API.api.getAccountBank(true).then(function (bank) {
         $scope.$evalAsync(function () {
           vm.bank = bank;
-          console.log(bank);
         });
       });
     }
@@ -93,7 +92,6 @@ angular.module('app.controllers', ['ionic']);
       GW2API.api.getCharacters($stateParams.charname).then(function (character)
       {
         vm.character = character;
-        console.log(character.specializations);
         $ionicLoading.hide();
       })
         .then(function ()
@@ -204,7 +202,6 @@ angular.module('app.controllers', ['ionic']);
     ////////////////
 
     function activate() {
-      console.log(GW2API.api.getAPIKey());
       if (!GW2API.api.getAPIKey()) {
         vm.error = "Please set your API key in Settings";
         return;
@@ -363,9 +360,7 @@ angular.module('app.controllers', ['ionic']);
         }
         Promise.all(promises).then(function () {
           // Force a redraw
-          $scope.$evalAsync(function () {
-            console.log(vm.character.bags);
-          });
+          $scope.$evalAsync(function () {});
         });
       })
     }
@@ -405,7 +400,6 @@ angular.module('app.controllers', ['ionic']);
 
       vm.eventChanged = function (ev) {
         var evs = [];
-        console.log(vm.events);
         for (var evid in vm.events) {
           if (vm.events[evid]) {
             evs.push({id : evid});
@@ -488,7 +482,6 @@ angular.module('app.controllers', ['ionic']);
       GW2API.api.getCharacters($stateParams.charname).then(function (character) {
         $scope.$evalAsync(function () {
           vm.character = character;
-          console.log(vm.character);
           loadRecipes();
         });
       }).catch(function (e) {

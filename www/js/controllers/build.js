@@ -25,7 +25,6 @@
       GW2API.api.getCharacters($stateParams.charname).then(function (character)
       {
         vm.character = character;
-        console.log(character.specializations);
         $ionicLoading.hide();
       })
         .then(function ()

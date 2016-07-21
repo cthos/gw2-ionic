@@ -19,7 +19,6 @@
       GW2API.api.getAccountBank(true).then(function (bank) {
         $scope.$evalAsync(function () {
           vm.bank = bank;
-          console.log(bank);
         });
       });
     }

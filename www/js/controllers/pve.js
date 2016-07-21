@@ -22,7 +22,6 @@
 
       vm.eventChanged = function (ev) {
         var evs = [];
-        console.log(vm.events);
         for (var evid in vm.events) {
           if (vm.events[evid]) {
             evs.push({id : evid});
