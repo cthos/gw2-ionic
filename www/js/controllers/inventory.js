@@ -5,8 +5,8 @@
     .module('app.controllers')
     .controller('CharacterInventoryCtrl', CharacterInventoryCtrl);
 
-  CharacterInventoryCtrl.$inject = ['GW2API', '$stateParams', '$scope', '$ionicPopup'];
-  function CharacterInventoryCtrl(GW2API, $stateParams, $scope, $ionicPopup) {
+  CharacterInventoryCtrl.$inject = ['GW2API', '$stateParams', '$scope', 'ItemPopup'];
+  function CharacterInventoryCtrl(GW2API, $stateParams, $scope, ItemPopup) {
     var vm = this;
     vm.itemPopup = itemPopup;
 
@@ -43,13 +43,7 @@
     }
     
     function itemPopup(i) {
-      $scope.currentItem = i;
-      
-       var myPopup = $ionicPopup.alert({
-        templateUrl: "templates/popups/item-detail.html",
-        scope: $scope,
-        title: i.name
-      });
+      ItemPopup.pop(i, $scope);
     }
   }
 })();

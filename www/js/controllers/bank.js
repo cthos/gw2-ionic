@@ -5,8 +5,8 @@
     .module('app.controllers')
     .controller('BankCtrl', BankCtrl);
 
-  BankCtrl.$inject = ['GW2API', '$scope', '$ionicLoading', '$ionicPopup'];
-  function BankCtrl(GW2API, $scope, $ionicLoading, $ionicPopup) {
+  BankCtrl.$inject = ['GW2API', '$scope', '$ionicLoading', 'ItemPopup'];
+  function BankCtrl(GW2API, $scope, $ionicLoading, ItemPopup) {
     var vm = this;
     vm.itemPopup = itemPopup;
     
@@ -24,13 +24,7 @@
     }
 
     function itemPopup(i) {
-      $scope.currentItem = i;
-      
-       var myPopup = $ionicPopup.alert({
-        templateUrl: "templates/popups/item-detail.html",
-        scope: $scope,
-        title: i.name
-      });
+      ItemPopup.pop(i, $scope);
     }
   }
 })();

@@ -36,8 +36,8 @@ angular.module('app.controllers', ['ionic']);
     .module('app.controllers')
     .controller('BankCtrl', BankCtrl);
 
-  BankCtrl.$inject = ['GW2API', '$scope', '$ionicLoading', '$ionicPopup'];
-  function BankCtrl(GW2API, $scope, $ionicLoading, $ionicPopup) {
+  BankCtrl.$inject = ['GW2API', '$scope', '$ionicLoading', 'ItemPopup'];
+  function BankCtrl(GW2API, $scope, $ionicLoading, ItemPopup) {
     var vm = this;
     vm.itemPopup = itemPopup;
     
@@ -55,13 +55,7 @@ angular.module('app.controllers', ['ionic']);
     }
 
     function itemPopup(i) {
-      $scope.currentItem = i;
-      
-       var myPopup = $ionicPopup.alert({
-        templateUrl: "templates/popups/item-detail.html",
-        scope: $scope,
-        title: i.name
-      });
+      ItemPopup.pop(i, $scope);
     }
   }
 })();
@@ -328,8 +322,8 @@ angular.module('app.controllers', ['ionic']);
     .module('app.controllers')
     .controller('CharacterInventoryCtrl', CharacterInventoryCtrl);
 
-  CharacterInventoryCtrl.$inject = ['GW2API', '$stateParams', '$scope', '$ionicPopup'];
-  function CharacterInventoryCtrl(GW2API, $stateParams, $scope, $ionicPopup) {
+  CharacterInventoryCtrl.$inject = ['GW2API', '$stateParams', '$scope', 'ItemPopup'];
+  function CharacterInventoryCtrl(GW2API, $stateParams, $scope, ItemPopup) {
     var vm = this;
     vm.itemPopup = itemPopup;
 
@@ -366,13 +360,7 @@ angular.module('app.controllers', ['ionic']);
     }
     
     function itemPopup(i) {
-      $scope.currentItem = i;
-      
-       var myPopup = $ionicPopup.alert({
-        templateUrl: "templates/popups/item-detail.html",
-        scope: $scope,
-        title: i.name
-      });
+      ItemPopup.pop(i, $scope);
     }
   }
 })();
@@ -383,8 +371,8 @@ angular.module('app.controllers', ['ionic']);
     .module('app.controllers')
     .controller('MaterialsCtrl', MaterialsCtrl);
 
-  MaterialsCtrl.$inject = ['GW2API', '$ionicLoading', '$scope', '$ionicPopup'];
-  function MaterialsCtrl(GW2API, $ionicLoadig,$scope, $ionicPopup) {
+  MaterialsCtrl.$inject = ['GW2API', '$ionicLoading', '$scope', 'ItemPopup'];
+  function MaterialsCtrl(GW2API, $ionicLoadig,$scope, ItemPopup) {
     var vm = this;
     vm.itemPopup = itemPopup;
 
@@ -399,16 +387,9 @@ angular.module('app.controllers', ['ionic']);
         });
       });
     }
-
-    // TODO Make this into a service or a directive or something
+    
     function itemPopup(i) {
-      $scope.currentItem = i;
-      
-       var myPopup = $ionicPopup.alert({
-        templateUrl: "templates/popups/item-detail.html",
-        scope: $scope,
-        title: i.name
-      });
+      ItemPopup.pop(i, $scope);
     }
   }
 })();
