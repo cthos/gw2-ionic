@@ -40,8 +40,7 @@ angular.module('app.controllers', ['ionic']);
   function BankCtrl(GW2API, $scope, $ionicLoading, ItemPopup) {
     var vm = this;
     vm.itemPopup = itemPopup;
-    
-
+  
     activate();
 
     ////////////////

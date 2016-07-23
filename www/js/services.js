@@ -16,8 +16,6 @@ angular.module('app.services', []);
     };
     var gw2 = require('gw2-api');
     var api = new gw2.gw2();
-    //api.setStorage(new gw2.memStore())
-    //api.setCache(false);
     api.setUseAuthHeader(false);
 
     var service = {

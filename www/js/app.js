@@ -118,6 +118,27 @@ angular.module('starter', ['ionic', 'app.controllers', 'app.services'])
     parent : 'app'
   })
 
+  .state('transactions', {
+    url: '/transactions',
+    templateUrl : 'templates/transactions.html',
+    controller : 'TransactionsCtrl as vm',
+    parent : 'app'
+  })
+
+  .state('transactions.current', {
+    url: '/transactions',
+    templateUrl : 'templates/transactions/current.html',
+    controller : 'TransactionsCurrentCtrl as vm',
+    parent : 'transactions'
+  })
+
+  .state('transactions.history', {
+    url: '/transactions',
+    templateUrl : 'templates/transactions/history.html',
+    controller : 'TransactionsHistoryCtrl as vm',
+    parent : 'transactions'
+  })
+
   .state('character-detail', {
     url: '/character/{charname}',
     templateUrl : 'templates/character-detail.html',
