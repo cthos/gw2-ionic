@@ -102,7 +102,7 @@ angular.module('starter', ['ionic', 'app.controllers', 'app.services'])
     views: {
       'tab-events': {
         templateUrl: 'templates/tab-events.html',
-        controller: 'PVECtrl as vm'
+        controller: 'EventsCtrl as vm'
       }
     }
   })

@@ -1,8 +1,8 @@
 <ion-view view-title="Events">
   <ion-content class="padding">
     <ul class="events list">
-      <li class="item item-icon-left">
-        <i class="icon ion-android-globe"></i>
+      <li class="item" ng-repeat="event in vm.events" ng-click="vm.eventDetails(event)">
+        {{event.summary}}
       </li>
     </ul>
   </ion-content>
