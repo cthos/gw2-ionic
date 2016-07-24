@@ -641,6 +641,78 @@ angular.module('app.controllers', ['ionic']);
 
   angular
     .module('app.controllers')
+    .controller('TransactionsCtrl', TransactionsCtrl);
+
+  TransactionsCtrl.$inject = [];
+  function TransactionsCtrl() {
+    var vm = this;
+    
+
+    activate();
+
+    ////////////////
+
+    function activate() { }
+  }
+})();
+(function() {
+'use strict';
+
+  angular
+    .module('app.controllers')
+    .controller('TransactionsCurrentCtrl', TransactionsCurrentCtrl);
+
+  TransactionsCurrentCtrl.$inject = ['GW2API', '$ionicLoading'];
+  function TransactionsCurrentCtrl(GW2API) {
+    var vm = this;
+
+    activate();
+
+    ////////////////
+
+    function activate() { 
+      GW2API.api.getCommerceTransactions(true, 'buys').then(function (buys) {
+        console.log(buys);
+      });
+
+      GW2API.api.getCommerceTransactions(false, 'sells').then(function (sells) {
+        console.log(sells);
+      });
+    }
+  }
+})();
+(function() {
+'use strict';
+
+  angular
+    .module('app.controllers')
+    .controller('TransactionsHistoryCtrl', TransactionsHistoryCtrl);
+
+  TransactionsHistoryCtrl.$inject = ['GW2API', '$ionicLoading'];
+  function TransactionsHistoryCtrl(GW2API, $ionicLoading) {
+    var vm = this;
+    
+
+    activate();
+
+    ////////////////
+
+    function activate() {
+      GW2API.api.getCommerceTransactions(false, 'buys').then(function (buys) {
+        console.log(buys);
+      });
+
+      GW2API.api.getCommerceTransactions(false, 'sells').then(function (sells) {
+        console.log(sells);
+      });
+    }
+  }
+})();
+(function() {
+'use strict';
+
+  angular
+    .module('app.controllers')
     .controller('WalletCtrl', WalletCtrl);
 
   WalletCtrl.$inject = ['$scope', '$ionicLoading', 'GW2API'];
