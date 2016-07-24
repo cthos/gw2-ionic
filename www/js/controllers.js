@@ -321,12 +321,11 @@ angular.module('app.controllers', ['ionic']);
     .module('app.controllers')
     .controller('EventsCtrl', EventsCtrl);
 
-  EventsCtrl.$inject = ['GW2API', '$ionicLoading', '$stateParams', '$scope', '$ionicPopup'];
-  function EventsCtrl(GW2API, $ionicLoading, $stateParams, $scope, $ionicPopup) {
+  EventsCtrl.$inject = ['GW2API', '$ionicLoading', '$stateParams', '$scope', '$ionicPopup', '$location', '$anchorScroll'];
+  function EventsCtrl(GW2API, $ionicLoading, $stateParams, $scope, $ionicPopup, $location, $anchorScroll) {
+    var moment = require('moment');
     var vm = this;
-    vm.outputItems = {};
-    vm.inputItems = {};
-
+    vm.events = {};
     vm.showEventDetails = showEventDetails;
 
     activate();
@@ -337,25 +336,30 @@ angular.module('app.controllers', ['ionic']);
       $ionicLoading.show({
         template: 'Loading...'
       });
-
       loadEvents();
     }
 
     function loadEvents() {
-      console.log(GW2API);
-      var outputItems = [];
-      events = GW2API.eventsAPI.getEventsFull();
+      var events = GW2API.eventsAPI.getEventsFull();
+      var now = moment().unix();
+      var nextFound = false;
+      var nextEventIndex = 0;
 
-      console.log(events);
-      loadOutputItems(outputItems);
-    }
-
-    function loadOutputItems(outputItems) {
-      events.forEach(function (event) {
-        console.log(event);
+      events.forEach(function (event, index) {
+        event.index = index;
+        event.localTime = moment.unix(event.unixtime).format('h:mm');
+        if (!nextFound && event.unixtime >= now) {
+          nextEventIndex = index;
+          nextFound = true;
+        }
+        vm.events[index] = event;
       });
 
-      // TODO
+      // window.setTimeout(function() {
+      //   $ionicLoading.hide();
+      //   $location.hash('event-' + nextEventIndex);
+      //   $anchorScroll();
+      // }, 5000);
     }
 
     function showEventDetails(event) {
