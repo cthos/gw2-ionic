@@ -14,11 +14,14 @@
     };
     var gw2 = require('gw2-api');
     var api = new gw2.gw2();
+    var gw2Events = require('gw2-events');
+    var eventsAPI = new gw2Events.gw2Events();
     api.setUseAuthHeader(false);
 
     var service = {
       achievements: Achievements,
       api: api,
+      eventsAPI: eventsAPI,
       reload: reload,
       tokenHasPermission: tokenHasPermission
     };

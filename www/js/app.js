@@ -97,6 +97,16 @@ angular.module('starter', ['ionic', 'app.controllers', 'app.services'])
     }
   })
 
+  .state('tab.events', {
+    url: '/events',
+    views: {
+      'tab-events': {
+        templateUrl: 'templates/tab-events.html',
+        controller: 'EventsCtrl as vm'
+      }
+    }
+  })
+
   .state('characters', {
     url: '/characters',
     templateUrl : 'templates/characters.html',
@@ -152,28 +162,28 @@ angular.module('starter', ['ionic', 'app.controllers', 'app.services'])
     controller : 'CharacterViewCtrl as vm',
     parent : 'app'
   })
-  
+
   .state('character-build', {
     url: '/character/{charname}/build',
     templateUrl : 'templates/character-build.html',
     controller : 'CharacterBuildCtrl as vm',
     parent : 'app'
   })
-  
+
   .state('character-equipment', {
     url: '/character/{charname}/equipment',
     templateUrl : 'templates/character-equipment.html',
     controller : 'CharacterEquipmentCtrl as vm',
     parent : 'app'
   })
-  
+
   .state('character-inventory', {
     url: '/character/{charname}/inventory',
     templateUrl : 'templates/character-inventory.html',
     controller : 'CharacterInventoryCtrl as vm',
     parent : 'app'
   })
-  
+
   .state('character-recipies', {
     url: '/character/{charname}/recipies',
     templateUrl : 'templates/character-recipies.html',

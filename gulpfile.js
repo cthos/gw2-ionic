@@ -6,6 +6,8 @@ var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
+var browserify = require('browserify');
+var vinylSource = require('vinyl-source-stream');
 
 var paths = {
   sass: ['./scss/**/*.scss']
@@ -62,4 +64,12 @@ gulp.task('git-check', function(done) {
     process.exit(1);
   }
   done();
+});
+
+gulp.task('browserify', function() {
+  return browserify()
+    .require(['gw2-api', 'gw2-events', 'moment'])
+    .bundle()
+    .pipe(vinylSource('gw2-api.js'))
+    .pipe(gulp.dest('./www/lib/'));
 });
