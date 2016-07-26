@@ -9,8 +9,11 @@
         <img ng-src="{{item.icon}}" />
         <h2>{{item.name}}</h2>
         <h3>{{item.formatted_date}}</h3>
-        <!-- TODO: Price formatter. -->
-        <h3>{{item.price}}</h3>
+         <div class="currency-stanza">
+          <span class="gold">{{item.formatted_currency.gold}}</span>
+          <span class="silver">{{item.formatted_currency.silver}}</span>
+          <span class="copper">{{item.formatted_currency.copper}}</span>
+        </div>
       </div>
       <div class="item no-buys" ng-if="!vm.buys.length">
         Not Currently Buying anything.
@@ -22,7 +25,11 @@
         <img ng-src="{{item.icon}}" />
         <h2>{{item.name}}</h2>
         <h3>{{item.formatted_date}}</h3>
-        <h3>{{item.price}}</h3>
+        <div class="currency-stanza">
+          <span class="gold">{{item.formatted_currency.gold}}</span>
+          <span class="silver">{{item.formatted_currency.silver}}</span>
+          <span class="copper">{{item.formatted_currency.copper}}</span>
+        </div>
       </div>
       <div class="item no-buys" ng-if="!vm.sells.length">
         Not Currently Selling anything.

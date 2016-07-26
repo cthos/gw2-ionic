@@ -5,8 +5,8 @@
     .module('app.controllers')
     .controller('TransactionsCurrentCtrl', TransactionsCurrentCtrl);
 
-  TransactionsCurrentCtrl.$inject = ['GW2API', '$ionicLoading', '$scope'];
-  function TransactionsCurrentCtrl(GW2API, $ionicLoading, $scope) {
+  TransactionsCurrentCtrl.$inject = ['GW2API', 'CurrencyFormatter', '$ionicLoading', '$scope'];
+  function TransactionsCurrentCtrl(GW2API, CurrencyFormatter, $ionicLoading, $scope) {
     var moment = require('moment');
     var vm = this;
     vm.buys = [];
@@ -52,9 +52,12 @@
             if (res[i].item_id == item.item_id) {
               Object.assign(res[i], item);
               res[i].formatted_date = moment(res[i].purchased).format('MMMM Do YYYY, h:mm:ss a');
+              res[i].formatted_currency = CurrencyFormatter.formatGold(res[i].price);
             }
           }
         });
+
+        console.log(res);
 
         return res;
       });

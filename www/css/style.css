@@ -57,3 +57,24 @@
 .common-border {
   border-color: black;
 }
+
+.currency-stanza span {
+  padding: 3px;
+  font-weight: bold;
+  border-radius: 50%;
+  min-width: 25px;
+  display: inline-block;
+  text-align: center;
+}
+
+.currency-stanza .gold {
+  background-color: yellow;
+}
+
+.currency-stanza .silver {
+  background-color: silver;
+}
+
+.currency-stanza .copper {
+  background-color: darkorange;
+}
