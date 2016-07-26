@@ -5,7 +5,13 @@
       ng-repeat="event in vm.events"
       item-height="100px"
     >
-      <h2>{{event.localTime}} - {{event.worldBoss}}</h2>
+      <h2>
+        {{event.localTime}} -
+        <a href="{{event.wikiLink}}" target="_system">{{event.worldBoss}}</a>
+        <span class="hardcore" ng-if="event.hardcore">
+          (Hardcore)
+        </span>
+      </h2>
       <p>{{event.zone}}, {{event.area}}</p>
     </ion-item>
   </ion-content>
