@@ -809,10 +809,11 @@ angular.module('app.controllers', ['ionic']);
     .module('app.controllers')
     .controller('WalletCtrl', WalletCtrl);
 
-  WalletCtrl.$inject = ['$scope', '$ionicLoading', 'GW2API'];
-  function WalletCtrl($scope, $ionicLoading, GW2API) {
+  WalletCtrl.$inject = ['CurrencyFormatter', '$scope', '$ionicLoading', 'GW2API'];
+  function WalletCtrl(CurrencyFormatter, $scope, $ionicLoading, GW2API) {
     var vm = this;
     vm.wallet = null;
+    vm.formatter = CurrencyFormatter;
 
     activate();
 

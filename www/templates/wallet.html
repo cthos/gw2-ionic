@@ -12,7 +12,7 @@
       <ion-item class="item-avatar">
         <img src="{{currency.icon}}" />
         <p>
-          {{currency.value}}
+          {{vm.formatter.formatCurrency(currency.name, currency.value)}}
         </p>
       </ion-item>
     </div>
