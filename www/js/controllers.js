@@ -347,7 +347,7 @@ angular.module('app.controllers', ['ionic']);
 
       events.forEach(function (event, index) {
         event.index = index;
-        event.localTime = moment.unix(event.unixtime).format('h:mm');
+        event.localTime = moment.unix(event.unixtime).format('h:mm A');
         if (!nextFound && event.unixtime >= now) {
           nextEventIndex = index;
           nextFound = true;
