@@ -25,7 +25,7 @@
           });
         });
 
-      GW2API.api.getCommerceTransactions(false, 'sells')
+      GW2API.api.getCommerceTransactions(true, 'sells')
         .then(addItemsToResults)
         .then(function (sells) {
           $scope.$evalAsync(function () {

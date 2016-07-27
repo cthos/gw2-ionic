@@ -1,0 +1,41 @@
+<ion-view>
+  <ion-nav-title>
+    Historical Transactions
+  </ion-nav-title>
+  <ion-content>
+    <div class="card">
+      <div class="item item-divider">Buys</div>
+      <div class="item item-thumbnail-left" ng-repeat="item in vm.buys">
+        <img ng-src="{{item.icon}}" />
+        <h2>{{item.name}}</h2>
+        <h3>{{item.formatted_date}}</h3>
+         <div class="currency-stanza">
+          <span class="gold">{{item.formatted_currency.gold}}</span>
+          <span class="silver">{{item.formatted_currency.silver}}</span>
+          <span class="copper">{{item.formatted_currency.copper}}</span>
+        </div>
+        <h3>Quantity: {{item.quantity}}</h3>
+      </div>
+      <div class="item no-buys" ng-if="!vm.buys.length">
+        No Historical Buys
+      </div>
+    </div>
+    <div class="card">
+      <div class="item item-divider">Sells</div>
+      <div class="item item-thumbnail-left" ng-repeat="item in vm.sells">
+        <img ng-src="{{item.icon}}" />
+        <h2>{{item.name}}</h2>
+        <h3>{{item.formatted_date}}</h3>
+        <div class="currency-stanza">
+          <span class="gold">{{item.formatted_currency.gold}}</span>
+          <span class="silver">{{item.formatted_currency.silver}}</span>
+          <span class="copper">{{item.formatted_currency.copper}}</span>
+        </div>
+        <h3>Quantity: {{item.quantity}}</h3>
+      </div>
+      <div class="item no-buys" ng-if="!vm.sells.length">
+        No historical Sells
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
