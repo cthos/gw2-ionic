@@ -5,7 +5,7 @@
   <ion-content>
     <div class="card">
       <div class="item item-divider">Buys</div>
-      <div class="item item-thumbnail-left" ng-repeat="item in vm.buys">
+      <div class="item item-thumbnail-left" ng-repeat="item in vm.buys" ng-click="vm.itemPopup(item)">
         <img ng-src="{{item.icon}}" />
         <h2>{{item.name}}</h2>
         <h3>{{item.formatted_date}}</h3>
@@ -22,7 +22,7 @@
     </div>
     <div class="card">
       <div class="item item-divider">Sells</div>
-      <div class="item item-thumbnail-left" ng-repeat="item in vm.sells">
+      <div class="item item-thumbnail-left" ng-repeat="item in vm.sells" ng-click="vm.itemPopup(item)">
         <img ng-src="{{item.icon}}" />
         <h2>{{item.name}}</h2>
         <h3>{{item.formatted_date}}</h3>

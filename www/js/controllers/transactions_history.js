@@ -5,12 +5,13 @@
     .module('app.controllers')
     .controller('TransactionsHistoryCtrl', TransactionsHistoryCtrl);
 
-  TransactionsHistoryCtrl.$inject = ['GW2API', 'CurrencyFormatter', '$ionicLoading', '$scope'];
-  function TransactionsHistoryCtrl(GW2API, CurrencyFormatter, $ionicLoading, $scope) {
+  TransactionsHistoryCtrl.$inject = ['GW2API', 'CurrencyFormatter', '$ionicLoading', '$scope', 'ItemPopup'];
+  function TransactionsHistoryCtrl(GW2API, CurrencyFormatter, $ionicLoading, $scope, ItemPopup) {
     var moment = require('moment');
     var vm = this;
     vm.buys = [];
     vm.sells = [];
+    vm.itemPopup = itemPopup;
     
 
     activate();
@@ -64,6 +65,10 @@
 
         return res;
       });
+    }
+    
+    function itemPopup(i) {
+      ItemPopup.pop(i, $scope);
     }
   }
 })();

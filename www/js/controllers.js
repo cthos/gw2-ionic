@@ -716,12 +716,13 @@ angular.module('app.controllers', ['ionic']);
     .module('app.controllers')
     .controller('TransactionsCurrentCtrl', TransactionsCurrentCtrl);
 
-  TransactionsCurrentCtrl.$inject = ['GW2API', 'CurrencyFormatter', '$ionicLoading', '$scope'];
-  function TransactionsCurrentCtrl(GW2API, CurrencyFormatter, $ionicLoading, $scope) {
+  TransactionsCurrentCtrl.$inject = ['GW2API', 'CurrencyFormatter', '$ionicLoading', '$scope', 'ItemPopup'];
+  function TransactionsCurrentCtrl(GW2API, CurrencyFormatter, $ionicLoading, $scope, ItemPopup) {
     var moment = require('moment');
     var vm = this;
     vm.buys = [];
     vm.sells = [];
+    vm.itemPopup = itemPopup;
 
     activate();
 
@@ -773,6 +774,10 @@ angular.module('app.controllers', ['ionic']);
         return res;
       });
     }
+
+    function itemPopup(i) {
+      ItemPopup.pop(i, $scope);
+    }
   }
 })();
 (function() {
@@ -782,12 +787,13 @@ angular.module('app.controllers', ['ionic']);
     .module('app.controllers')
     .controller('TransactionsHistoryCtrl', TransactionsHistoryCtrl);
 
-  TransactionsHistoryCtrl.$inject = ['GW2API', 'CurrencyFormatter', '$ionicLoading', '$scope'];
-  function TransactionsHistoryCtrl(GW2API, CurrencyFormatter, $ionicLoading, $scope) {
+  TransactionsHistoryCtrl.$inject = ['GW2API', 'CurrencyFormatter', '$ionicLoading', '$scope', 'ItemPopup'];
+  function TransactionsHistoryCtrl(GW2API, CurrencyFormatter, $ionicLoading, $scope, ItemPopup) {
     var moment = require('moment');
     var vm = this;
     vm.buys = [];
     vm.sells = [];
+    vm.itemPopup = itemPopup;
     
 
     activate();
@@ -841,6 +847,10 @@ angular.module('app.controllers', ['ionic']);
 
         return res;
       });
+    }
+    
+    function itemPopup(i) {
+      ItemPopup.pop(i, $scope);
     }
   }
 })();
