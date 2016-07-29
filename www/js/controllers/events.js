@@ -17,9 +17,7 @@
     ////////////////
 
     function activate() {
-      $ionicLoading.show({
-        template: 'Loading...'
-      });
+      $ionicLoading.show();
       loadEvents();
     }
 

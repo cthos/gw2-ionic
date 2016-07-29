@@ -15,9 +15,7 @@
     ////////////////
 
     function activate() {
-      $ionicLoading.show({
-        template: 'Loading...'
-      });
+      $ionicLoading.show();
 
       GW2API.api.getCharacters($stateParams.charname).then(function (character) {
         $scope.$evalAsync(function () {

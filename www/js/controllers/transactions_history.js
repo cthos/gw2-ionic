@@ -19,7 +19,9 @@
     ////////////////
 
     function activate() {
-      GW2API.api.getCommerceTransactions(false, 'buys')
+      $ionicLoading.show();
+
+      var loadBuy = GW2API.api.getCommerceTransactions(false, 'buys')
         .then(addItemsToResults)
         .then(function (buys) {
           $scope.$evalAsync(function () {
@@ -27,11 +29,15 @@
           });
         }).catch(function (e) {console.log(e)});
 
-      GW2API.api.getCommerceTransactions(false, 'sells').then(addItemsToResults)
+      var loadSell = GW2API.api.getCommerceTransactions(false, 'sells').then(addItemsToResults)
         .then(function (sells) {
           $scope.$evalAsync(function () {
             vm.sells = sells;
           });
+        });
+
+        Promise.all([loadBuy, loadSell]).then(function () {
+          $ionicLoading.hide();
         });
     }
 

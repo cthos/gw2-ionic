@@ -78,9 +78,7 @@ angular.module('app.controllers', ['ionic']);
 
     function activate()
     {
-      $ionicLoading.show({
-        template: 'Loading...'
-      });
+      $ionicLoading.show();
 
       GW2API.api.getCharacters($stateParams.charname).then(function (character)
       {
@@ -208,9 +206,7 @@ angular.module('app.controllers', ['ionic']);
       vm.error = null;
       vm.professionsMap = {};
 
-      $ionicLoading.show({
-        template: 'Getting Characters...'
-      });
+      $ionicLoading.show();
       vm.characters = [];
 
       GW2API.api.callAPI('characters', { page: 0 }, true).then(function (characters) {
@@ -252,9 +248,7 @@ angular.module('app.controllers', ['ionic']);
     ////////////////
 
     function activate() { 
-      $ionicLoading.show({
-        template : 'Loading...'
-      });
+      $ionicLoading.show();
 
       GW2API.api.getCharacters($stateParams.charname).then(function (character) {
         vm.character = character;
@@ -280,9 +274,7 @@ angular.module('app.controllers', ['ionic']);
     ////////////////
 
     function activate() {
-      $ionicLoading.show({
-        template: 'Loading...'
-      });
+      $ionicLoading.show();
 
       GW2API.api.getCharacters($stateParams.charname).then(function (character) {
         $scope.$evalAsync(function () {
@@ -333,9 +325,7 @@ angular.module('app.controllers', ['ionic']);
     ////////////////
 
     function activate() {
-      $ionicLoading.show({
-        template: 'Loading...'
-      });
+      $ionicLoading.show();
       loadEvents();
     }
 
@@ -425,7 +415,7 @@ angular.module('app.controllers', ['ionic']);
     .controller('MaterialsCtrl', MaterialsCtrl);
 
   MaterialsCtrl.$inject = ['GW2API', '$ionicLoading', '$scope', 'ItemPopup'];
-  function MaterialsCtrl(GW2API, $ionicLoadig,$scope, ItemPopup) {
+  function MaterialsCtrl(GW2API, $ionicLoading, $scope, ItemPopup) {
     var vm = this;
     vm.itemPopup = itemPopup;
 
@@ -434,10 +424,15 @@ angular.module('app.controllers', ['ionic']);
     ////////////////
 
     function activate() {
+      $ionicLoading.show();
+
       GW2API.api.getAccountMaterials(true).then(function (materials) {
+        $ionicLoading.hide();
         $scope.$evalAsync(function () {
           vm.materials = materials;
         });
+      }).catch(function (e) {
+        $ionicLoading.hide();
       });
     }
     
@@ -545,9 +540,7 @@ angular.module('app.controllers', ['ionic']);
     ////////////////
 
     function activate() { 
-      $ionicLoading.show({
-        template: 'Loading...'
-      });
+      $ionicLoading.show();
 
       GW2API.api.getCharacters($stateParams.charname).then(function (character) {
         $scope.$evalAsync(function () {
@@ -661,9 +654,7 @@ angular.module('app.controllers', ['ionic']);
     activate();
 
     function activate() {
-      $ionicLoading.show({
-        template: "Loading Data..."
-      });
+      $ionicLoading.show();
       
       $scope.$on('ach-details-req', vm.showRequirementsPopup);
 
@@ -728,7 +719,9 @@ angular.module('app.controllers', ['ionic']);
     ////////////////
 
     function activate() {
-      GW2API.api.getCommerceTransactions(true, 'buys')
+      $ionicLoading.show();
+
+      var loadBuy = GW2API.api.getCommerceTransactions(true, 'buys')
         .then(addItemsToResults)
         .then(function (buys) {
           $scope.$evalAsync(function () {
@@ -736,13 +729,17 @@ angular.module('app.controllers', ['ionic']);
           });
         });
 
-      GW2API.api.getCommerceTransactions(true, 'sells')
+      var loadSell = GW2API.api.getCommerceTransactions(true, 'sells')
         .then(addItemsToResults)
         .then(function (sells) {
           $scope.$evalAsync(function () {
             vm.sells = sells;
           });
         });
+
+      Promise.all([loadBuy, loadSell]).then(function () {
+        $ionicLoading.hide();
+      });
     }
 
     // TODO: Genericmake
@@ -752,6 +749,10 @@ angular.module('app.controllers', ['ionic']);
       res.forEach(function(result) {
         itemIds.push(result.item_id);
       });
+
+      if (!itemIds.length) {
+        return [];
+      }
 
       return GW2API.api.getItems(itemIds).then(function (items) {
         items.forEach(function(item) {
@@ -797,7 +798,9 @@ angular.module('app.controllers', ['ionic']);
     ////////////////
 
     function activate() {
-      GW2API.api.getCommerceTransactions(false, 'buys')
+      $ionicLoading.show();
+
+      var loadBuy = GW2API.api.getCommerceTransactions(false, 'buys')
         .then(addItemsToResults)
         .then(function (buys) {
           $scope.$evalAsync(function () {
@@ -805,11 +808,15 @@ angular.module('app.controllers', ['ionic']);
           });
         }).catch(function (e) {console.log(e)});
 
-      GW2API.api.getCommerceTransactions(false, 'sells').then(addItemsToResults)
+      var loadSell = GW2API.api.getCommerceTransactions(false, 'sells').then(addItemsToResults)
         .then(function (sells) {
           $scope.$evalAsync(function () {
             vm.sells = sells;
           });
+        });
+
+        Promise.all([loadBuy, loadSell]).then(function () {
+          $ionicLoading.hide();
         });
     }
 
@@ -870,9 +877,7 @@ angular.module('app.controllers', ['ionic']);
         return;
       }
       
-      $ionicLoading.show({
-        template : 'Loading wallet...'
-      });
+      $ionicLoading.show();
 
       GW2API.api.getWallet(true).then(function (w) {
         $ionicLoading.hide();

@@ -18,7 +18,9 @@
     ////////////////
 
     function activate() {
-      GW2API.api.getCommerceTransactions(true, 'buys')
+      $ionicLoading.show();
+
+      var loadBuy = GW2API.api.getCommerceTransactions(true, 'buys')
         .then(addItemsToResults)
         .then(function (buys) {
           $scope.$evalAsync(function () {
@@ -26,13 +28,17 @@
           });
         });
 
-      GW2API.api.getCommerceTransactions(true, 'sells')
+      var loadSell = GW2API.api.getCommerceTransactions(true, 'sells')
         .then(addItemsToResults)
         .then(function (sells) {
           $scope.$evalAsync(function () {
             vm.sells = sells;
           });
         });
+
+      Promise.all([loadBuy, loadSell]).then(function () {
+        $ionicLoading.hide();
+      });
     }
 
     // TODO: Genericmake
@@ -42,6 +48,10 @@
       res.forEach(function(result) {
         itemIds.push(result.item_id);
       });
+
+      if (!itemIds.length) {
+        return [];
+      }
 
       return GW2API.api.getItems(itemIds).then(function (items) {
         items.forEach(function(item) {

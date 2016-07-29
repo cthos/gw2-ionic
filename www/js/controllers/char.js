@@ -27,9 +27,7 @@
       vm.error = null;
       vm.professionsMap = {};
 
-      $ionicLoading.show({
-        template: 'Getting Characters...'
-      });
+      $ionicLoading.show();
       vm.characters = [];
 
       GW2API.api.callAPI('characters', { page: 0 }, true).then(function (characters) {

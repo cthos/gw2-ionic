@@ -21,9 +21,7 @@
         return;
       }
       
-      $ionicLoading.show({
-        template : 'Loading wallet...'
-      });
+      $ionicLoading.show();
 
       GW2API.api.getWallet(true).then(function (w) {
         $ionicLoading.hide();
