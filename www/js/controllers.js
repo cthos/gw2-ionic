@@ -552,7 +552,6 @@ angular.module('app.controllers', ['ionic']);
       GW2API.api.getCharacters($stateParams.charname).then(function (character) {
         $scope.$evalAsync(function () {
           vm.character = character;
-          console.log(vm.character);
           loadRecipes();
         });
       }).catch(function (e) {
@@ -741,7 +740,6 @@ angular.module('app.controllers', ['ionic']);
         .then(addItemsToResults)
         .then(function (sells) {
           $scope.$evalAsync(function () {
-            console.log(sells);
             vm.sells = sells;
           });
         });
@@ -768,8 +766,6 @@ angular.module('app.controllers', ['ionic']);
             }
           }
         });
-
-        console.log(res);
 
         return res;
       });
@@ -812,7 +808,6 @@ angular.module('app.controllers', ['ionic']);
       GW2API.api.getCommerceTransactions(false, 'sells').then(addItemsToResults)
         .then(function (sells) {
           $scope.$evalAsync(function () {
-            console.log(sells);
             vm.sells = sells;
           });
         });
@@ -842,8 +837,6 @@ angular.module('app.controllers', ['ionic']);
             }
           }
         });
-
-        console.log(res);
 
         return res;
       });

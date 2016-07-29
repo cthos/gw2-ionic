@@ -30,7 +30,6 @@
         .then(addItemsToResults)
         .then(function (sells) {
           $scope.$evalAsync(function () {
-            console.log(sells);
             vm.sells = sells;
           });
         });
@@ -57,8 +56,6 @@
             }
           }
         });
-
-        console.log(res);
 
         return res;
       });
