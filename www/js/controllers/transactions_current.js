@@ -5,19 +5,22 @@
     .module('app.controllers')
     .controller('TransactionsCurrentCtrl', TransactionsCurrentCtrl);
 
-  TransactionsCurrentCtrl.$inject = ['GW2API', 'CurrencyFormatter', '$ionicLoading', '$scope'];
-  function TransactionsCurrentCtrl(GW2API, CurrencyFormatter, $ionicLoading, $scope) {
+  TransactionsCurrentCtrl.$inject = ['GW2API', 'CurrencyFormatter', '$ionicLoading', '$scope', 'ItemPopup'];
+  function TransactionsCurrentCtrl(GW2API, CurrencyFormatter, $ionicLoading, $scope, ItemPopup) {
     var moment = require('moment');
     var vm = this;
     vm.buys = [];
     vm.sells = [];
+    vm.itemPopup = itemPopup;
 
     activate();
 
     ////////////////
 
     function activate() {
-      GW2API.api.getCommerceTransactions(true, 'buys')
+      $ionicLoading.show();
+
+      var loadBuy = GW2API.api.getCommerceTransactions(true, 'buys')
         .then(addItemsToResults)
         .then(function (buys) {
           $scope.$evalAsync(function () {
@@ -25,14 +28,17 @@
           });
         });
 
-      GW2API.api.getCommerceTransactions(false, 'sells')
+      var loadSell = GW2API.api.getCommerceTransactions(true, 'sells')
         .then(addItemsToResults)
         .then(function (sells) {
           $scope.$evalAsync(function () {
-            console.log(sells);
             vm.sells = sells;
           });
         });
+
+      Promise.all([loadBuy, loadSell]).then(function () {
+        $ionicLoading.hide();
+      });
     }
 
     // TODO: Genericmake
@@ -42,6 +48,10 @@
       res.forEach(function(result) {
         itemIds.push(result.item_id);
       });
+
+      if (!itemIds.length) {
+        return [];
+      }
 
       return GW2API.api.getItems(itemIds).then(function (items) {
         items.forEach(function(item) {
@@ -57,10 +67,12 @@
           }
         });
 
-        console.log(res);
-
         return res;
       });
+    }
+
+    function itemPopup(i) {
+      ItemPopup.pop(i, $scope);
     }
   }
 })();

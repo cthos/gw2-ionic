@@ -13,9 +13,7 @@
     activate();
 
     function activate() {
-      $ionicLoading.show({
-        template: "Loading Data..."
-      });
+      $ionicLoading.show();
       
       $scope.$on('ach-details-req', vm.showRequirementsPopup);
 
