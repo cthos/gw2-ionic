@@ -345,6 +345,8 @@ angular.module('app.controllers', ['ionic']);
         vm.events[index] = event;
       });
 
+      $ionicLoading.hide();
+
       // window.setTimeout(function() {
       //   $ionicLoading.hide();
       //   $location.hash('event-' + nextEventIndex);
