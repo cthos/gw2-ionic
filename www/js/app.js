@@ -77,15 +77,6 @@ angular.module('starter', ['ionic', 'app.controllers', 'app.services'])
         }
       }
     })
-    .state('tab.chat-detail', {
-      url: '/chats/:chatId',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl as vm'
-        }
-      }
-    })
 
   .state('tab.wvw', {
     url: '/wvw',
