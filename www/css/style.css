@@ -82,3 +82,14 @@
 .hardcore {
   color: red;
 }
+
+/** Nav */
+#main-nav-bar ion-header-bar {
+  background-color: #cc3333;
+  color: white;
+}
+
+.tab-item.tab-item-active {
+  color: #cc3333 !important;
+  border-color: #cc3333 !important;
+}
