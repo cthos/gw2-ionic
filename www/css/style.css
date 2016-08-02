@@ -89,7 +89,11 @@
   color: white;
 }
 
-.tab-item.tab-item-active {
+.tab-item.tab-item-active, .tab-item.activated {
   color: #cc3333 !important;
   border-color: #cc3333 !important;
+}
+
+.tab-item .icon {
+  padding-top: 2px;
 }
