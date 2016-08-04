@@ -62,8 +62,16 @@
 
     function searchRecipe() {
       if (!vm.search) {
-
+        vm.visibleRecipes = vm.recipes;
+        return;
       }
+
+      var matchRexp = new RegExp('.*' + vm.search + '.*', 'i');
+      console.log(matchRexp);
+
+      vm.visibleRecipes = vm.recipes.filter(function (item) {
+        return matchRexp.test(vm.outputItems[item.output_item_id].name);
+      });
     }
 
     function loadIngredients(ingredients) {
