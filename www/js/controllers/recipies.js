@@ -1,5 +1,5 @@
-(function() {
-'use strict';
+(function () {
+  'use strict';
 
   angular
     .module('app.controllers')
@@ -10,14 +10,16 @@
     var vm = this;
     vm.outputItems = {};
     vm.inputItems = {};
-
     vm.showRecipeDetails = showRecipeDetails;
+
+    vm.showRecipe = showRecipe;
+    vm.searchRecipe = searchRecipe;
 
     activate();
 
     ////////////////
 
-    function activate() { 
+    function activate() {
       $ionicLoading.show();
 
       GW2API.api.getCharacters($stateParams.charname).then(function (character) {
@@ -26,20 +28,21 @@
           loadRecipes();
         });
       }).catch(function (e) {
-          console.log(e);
+        console.log(e);
       });
     }
-    
+
     function loadRecipes() {
       var outputItems = [];
 
       GW2API.api.getDeeperInfo(GW2API.api.getRecipes, vm.character.recipes).then(function (r) {
-          r.forEach(function (rec) {
-            outputItems.push(rec.output_item_id);
-          });
+        r.forEach(function (rec) {
+          outputItems.push(rec.output_item_id);
+        });
 
-          vm.recipes = r;
-          loadOutputItems(outputItems);
+        vm.recipes = r;
+        vm.visibleRecipes = r;
+        loadOutputItems(outputItems);
       }).catch(function (e) {
         console.log(e);
       });
@@ -51,14 +54,33 @@
           vm.outputItems[i.id] = i;
         });
         $ionicLoading.hide();
-        $scope.$evalAsync(function () {});
+        $scope.$evalAsync(function () { });
       }).catch(function (e) {
         console.log(e);
       });
     }
 
+    function searchRecipe() {
+      if (!vm.search) {
+
+      }
+    }
+
     function loadIngredients(ingredients) {
       return GW2API.api.getItems(ingredients);
+    }
+
+    function showRecipe(recipe) {
+      if (!vm.search) {
+        return true;
+      }
+
+      var matchRexp = new RegExp('/' + vm.search + '/', 'i');
+
+      console.log(matchRexp);
+
+      return matchRexp.test(vm.outputItems[recipe.output_item_id].name);
+
     }
 
     function showRecipeDetails(recipe) {

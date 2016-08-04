@@ -5,15 +5,16 @@
   <ion-content>
     <input type="search"
         placeholder="Search for Recipe..."
-        ng-model="search">
+        ng-model="vm.search">
       <ion-item
         class="item item-thumbnail-left"
-        collection-repeat="recipe in vm.recipes"
+        collection-repeat="recipe in vm.visibleRecipes"
         item-height="70px"
         ng-click="vm.showRecipeDetails(recipe)"
       >
         <img style="height: 50px; width: 50px;" ng-src="{{vm.outputItems[recipe.output_item_id].icon}}" />
         {{ vm.outputItems[recipe.output_item_id].name }}
+       
       </ion-item>
   </ion-content>
 </ion-view>
