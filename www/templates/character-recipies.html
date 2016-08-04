@@ -3,10 +3,12 @@
     {{ vm.character.name }} - Recipes Known
   </ion-nav-title>
   <ion-content>
-    <input type="search"
-        placeholder="Search for Recipe..."
-        ng-model="vm.search"
-        ng-change="vm.searchRecipe()">
+      <div class="item item-input">
+        <input type="search"
+            placeholder="Search for Recipe..."
+            ng-model="vm.search"
+            ng-change="vm.searchRecipe()">
+      </div>
       <ion-item
         class="item item-thumbnail-left"
         collection-repeat="recipe in vm.visibleRecipes"

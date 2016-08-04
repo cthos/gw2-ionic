@@ -420,6 +420,7 @@ angular.module('app.controllers', ['ionic']);
   function MaterialsCtrl(GW2API, $ionicLoading, $scope, ItemPopup) {
     var vm = this;
     vm.itemPopup = itemPopup;
+    vm.materialVisible = materialVisible;
 
     activate();
 
@@ -440,6 +441,16 @@ angular.module('app.controllers', ['ionic']);
     
     function itemPopup(i) {
       ItemPopup.pop(i, $scope);
+    }
+
+    function materialVisible(material) {
+      if (!vm.search) {
+        return true;
+      }
+
+      var matchRexp = new RegExp('.*' + vm.search + '.*', 'i');
+
+      return matchRexp.test(material.name);
     }
   }
 })();

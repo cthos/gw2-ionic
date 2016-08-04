@@ -3,8 +3,15 @@
     Account Material Storage
   </ion-nav-title>
   <ion-content>
+    <div class="item item-input">
+      <input type="search"
+          placeholder="Search for Material..."
+          ng-model="vm.search"
+          ng-change="vm.searchRecipe()">
+    </div>
+    
     <div class="row" style="flex-wrap: wrap">
-      <div class="col col-20" ng-repeat="item in vm.materials track by $index" ng-click="vm.itemPopup(item)">
+      <div class="col col-20" ng-repeat="item in vm.materials track by $index" ng-click="vm.itemPopup(item)" ng-if="vm.materialVisible(item)">
         <img ng-if="item" class="inventory-icon {{item.rarity.toLowerCase()}}-border" ng-src="{{item.icon}}" alt="">
         <span ng-if="item" class="inventory-count">{{item.count}}</span>
         <div ng-if="!item" class="item-empty-slot"></div>
