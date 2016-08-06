@@ -1,8 +1,8 @@
 {
-  "name": "angular-sanitize",
-  "version": "1.5.3",
-  "description": "AngularJS module for sanitizing HTML",
-  "main": "index.js",
+  "name": "angular-mocks",
+  "version": "1.5.8",
+  "description": "AngularJS mocks for testing",
+  "main": "angular-mocks.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -14,7 +14,8 @@
     "angular",
     "framework",
     "browser",
-    "html",
+    "mocks",
+    "testing",
     "client-side"
   ],
   "author": "Angular Core Team <angular-core+npm@google.com>",
@@ -22,5 +23,12 @@
   "bugs": {
     "url": "https://github.com/angular/angular.js/issues"
   },
-  "homepage": "http://angularjs.org"
+  "homepage": "http://angularjs.org",
+  "jspm": {
+    "shim": {
+      "angular-mocks": {
+        "deps": ["angular"]
+      }
+    }
+  }
 }

@@ -1,6 +1,3 @@
-// Karma configuration
-// Generated on Fri Aug 05 2016 17:25:08 GMT-0700 (PDT)
-
 module.exports = function(config) {
   config.set({
 
@@ -15,11 +12,13 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'bower_components/ionic/release/js/ionic.bundle.js',
-      'src/js/**/*.js',
-      'bower_components/angular-mocks/angular-mocks.js',
-      'src/tests/**',
-      'src/templates/**/*.html'
+      'www/lib/ionic/js/ionic.bundle.min.js',
+      'www/lib/angular-mocks/angular-mocks.js',
+      'www/js/app.js',
+      'www/js/controllers.js',
+      'www/js/services.js',
+      'tests/**',
+      'www/templates/**/*.html'
     ],
 
 
@@ -31,7 +30,7 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-       "src/templates/**/*.html": ["ng-html2js"]
+       "www/templates/**/*.html": ["ng-html2js"]
     },
 
 
