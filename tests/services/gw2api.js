@@ -3,9 +3,12 @@ describe('GW2API', function () {
   var expect = chai.expect;
 
 
-  beforeEach(angular.module('app.services'));
-  beforeEach(angular.mock.inject(function () {
-   
+  beforeEach(module('app'));
+  beforeEach(module('app.services'));
+  
+  beforeEach(inject(function (_GW2API_, $rootScope) {
+   GW2API = _GW2API_;
+   $scope = $rootScope;
   }));
 
   it('Should have a GW2API Service', function () {
