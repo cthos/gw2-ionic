@@ -17,6 +17,7 @@
     var gw2Events = require('gw2-events');
     var eventsAPI = new gw2Events.gw2Events();
     api.setUseAuthHeader(false);
+    api.setCache(false);
 
     var service = {
       achievements: Achievements,

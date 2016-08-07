@@ -14,4 +14,14 @@ describe('GW2API', function () {
   it('Should have a GW2API Service', function () {
     expect(GW2API).to.exist;
   });
+
+  it('Should have API methods', function () {
+    expect(GW2API.api).to.exist;
+
+    expect(GW2API.api.getAccountMaterials).to.exist;
+  });
+
+  it('Should have cache enabled', function () {
+    expect(GW2API.api.getCache()).to.be.false;
+  });
 });

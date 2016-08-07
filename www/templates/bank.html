@@ -3,6 +3,9 @@
     Account Bank
   </ion-nav-title>
   <ion-content>
+    <ion-refresher
+      pulling-text="Pull to refresh..."
+      on-refresh=""></ion-refresher>
     <div class="row" style="flex-wrap: wrap">
       <div class="col col-20" ng-repeat="item in vm.bank track by $index" ng-click="vm.itemPopup(item)">
         <img ng-if="item" class="inventory-icon {{item.rarity.toLowerCase()}}-border" ng-src="{{item.icon}}" alt="">
