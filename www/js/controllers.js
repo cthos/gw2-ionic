@@ -662,9 +662,10 @@ angular.module('app.controllers', ['ionic']);
     .module('app.controllers')
     .controller('SettingsCtrl', SettingsCtrl);
 
-  SettingsCtrl.$inject = ['$scope', 'GW2API'];
-  function SettingsCtrl($scope, GW2API) {
+  SettingsCtrl.$inject = ['$scope', '$ionicPopup', 'GW2API', 'GW2APICache'];
+  function SettingsCtrl($scope, $ionicPopup, GW2API, GW2APICache) {
     var vm = this;
+    vm.clearCache = clearCache;
     
 
     activate();
@@ -677,6 +678,14 @@ angular.module('app.controllers', ['ionic']);
       };
       $scope.$watch('vm.settings.apiKey', function (newVal) {
         GW2API.api.setAPIKey(newVal);
+      });
+    }
+
+    function clearCache() {
+      GW2APICache.clear();
+
+      $ionicPopup.alert({
+        template: "Cache has been cleared"
       });
     }
   }

@@ -5,8 +5,8 @@
     .module('app.services')
     .factory('GW2API', GW2API);
 
-  GW2API.$inject = [];
-  function GW2API() {
+  GW2API.$inject = ['GW2APICache'];
+  function GW2API(GW2APICache) {
     var Achievements = {
       'pve': [],
       'pvp': [],
@@ -17,7 +17,8 @@
     var gw2Events = require('gw2-events');
     var eventsAPI = new gw2Events.gw2Events();
     api.setUseAuthHeader(false);
-    api.setCache(false);
+    api.setStorage(GW2APICache);
+    api.setCache(true);
 
     var service = {
       achievements: Achievements,
