@@ -947,6 +947,7 @@ angular.module('app.controllers', ['ionic']);
     var vm = this;
     vm.wallet = null;
     vm.formatter = CurrencyFormatter;
+    vm.reload = reload;
 
     activate();
 
@@ -957,10 +958,14 @@ angular.module('app.controllers', ['ionic']);
         vm.error = "Please set your API key in Settings";
         return;
       }
-      
+
       $ionicLoading.show();
 
-      GW2API.api.getWallet(true).then(function (w) {
+      loadWallet();
+     }
+
+     function loadWallet() {
+       return GW2API.api.getWallet(true).then(function (w) {
         $ionicLoading.hide();
         if (w.text) {
           vm.error = w.text;
@@ -970,6 +975,15 @@ angular.module('app.controllers', ['ionic']);
       }).catch(function (err) {
         vm.error = err;
       });
+     }
+
+     function reload() {
+       GW2API.api.setCache(false);
+
+       loadWallet().then(function () {
+         GW2API.api.setCache(true);
+        $scope.$broadcast('scroll.refreshComplete');
+       });
      }
   }
 })();
