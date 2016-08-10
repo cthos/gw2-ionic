@@ -8,6 +8,7 @@
   CharCtrl.$inject = ['$scope', '$ionicLoading', 'GW2API'];
   function CharCtrl($scope, $ionicLoading, GW2API) {
     var vm = this;
+    vm.reload = reload;
 
     activate();
 
@@ -26,29 +27,42 @@
 
       vm.error = null;
       vm.professionsMap = {};
-
-      $ionicLoading.show();
       vm.characters = [];
 
-      GW2API.api.callAPI('characters', { page: 0 }, true).then(function (characters) {
+      loadCharacterData();
+    }
+
+    function loadCharacterData() {
+      $ionicLoading.show();
+
+      return GW2API.api.callAPI('characters', { page: 0 }, true).then(function (characters) {
         vm.characters = characters;
-        loadProfessions();
+        return loadProfessions();
       }).catch(function (err) {
         $ionicLoading.hide();
       });
     }
-    
+
     function loadProfessions() {
       var professions = [];
       vm.characters.forEach(function (c) {
         professions.push(c.profession);
       });
-      GW2API.api.getOneOrMany('professions', professions, false).then(function (professionsMap) {
+      return GW2API.api.getOneOrMany('professions', professions, false).then(function (professionsMap) {
         professionsMap.forEach(function (prof) {
           vm.professionsMap[prof.id] = prof;
         });
-        
+
         $ionicLoading.hide();
+      });
+    }
+
+    function reload() {
+      GW2API.api.setCache(false);
+
+      loadCharacterData().then(function () {
+        GW2API.api.setCache(true);
+        $scope.$broadcast('scroll.refreshComplete');
       });
     }
   }
