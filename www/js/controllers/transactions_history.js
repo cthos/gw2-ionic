@@ -1,5 +1,5 @@
-(function() {
-'use strict';
+(function () {
+  'use strict';
 
   angular
     .module('app.controllers')
@@ -12,7 +12,8 @@
     vm.buys = [];
     vm.sells = [];
     vm.itemPopup = itemPopup;
-    
+    vm.reload = reload;
+
 
     activate();
 
@@ -21,13 +22,19 @@
     function activate() {
       $ionicLoading.show();
 
+      loadTransactions().then(function () {
+        $ionicLoading.hide();
+      });
+    }
+
+    function loadTransactions() { 
       var loadBuy = GW2API.api.getCommerceTransactions(false, 'buys')
         .then(addItemsToResults)
         .then(function (buys) {
           $scope.$evalAsync(function () {
             vm.buys = buys;
           });
-        }).catch(function (e) {console.log(e)});
+        }).catch(function (e) { console.log(e) });
 
       var loadSell = GW2API.api.getCommerceTransactions(false, 'sells').then(addItemsToResults)
         .then(function (sells) {
@@ -36,15 +43,13 @@
           });
         });
 
-        Promise.all([loadBuy, loadSell]).then(function () {
-          $ionicLoading.hide();
-        });
+      return Promise.all([loadBuy, loadSell])
     }
 
     function addItemsToResults(res) {
       var itemIds = [];
 
-      res.forEach(function(result) {
+      res.forEach(function (result) {
         itemIds.push(result.item_id);
       });
 
@@ -53,7 +58,7 @@
       }
 
       return GW2API.api.getItems(itemIds).then(function (items) {
-        items.forEach(function(item) {
+        items.forEach(function (item) {
           item.item_id = item.id;
           delete item.id;
 
@@ -69,7 +74,16 @@
         return res;
       });
     }
-    
+
+    function reload() {
+      GW2API.api.setCache(false);
+
+      loadTransactions().then(function () {
+        GW2API.api.setCache(true);
+        $scope.$broadcast('scroll.refreshComplete');
+      });
+    }
+
     function itemPopup(i) {
       ItemPopup.pop(i, $scope);
     }
