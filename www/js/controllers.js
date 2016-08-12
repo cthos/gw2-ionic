@@ -965,7 +965,6 @@ angular.module('app.controllers', ['ionic']);
       });
     }
 
-<<<<<<< 77ecfa6466818f535023219cba20322cc23da090
     function reload() {
       GW2API.api.setCache(false);
 
@@ -975,12 +974,10 @@ angular.module('app.controllers', ['ionic']);
       });
     }
 
-=======
     function toggleSection(section) {
       vm.show[section] = !vm.show[section];
     }
     
->>>>>>> Resolve #6
     function itemPopup(i) {
       ItemPopup.pop(i, $scope);
     }
