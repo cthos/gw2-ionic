@@ -7,8 +7,8 @@
       pulling-text="Pull to refresh..."
       on-refresh="vm.reload()"></ion-refresher>
     <div class="card">
-      <div class="item item-divider">Buys</div>
-      <div class="item item-thumbnail-left" ng-repeat="item in vm.buys" ng-click="vm.itemPopup(item)">
+      <div class="item item-divider" ng-click="vm.toggleSection('buys')">Buys</div>
+      <div class="item item-thumbnail-left" ng-repeat="item in vm.buys" ng-click="vm.itemPopup(item)"  ng-show="vm.show['buys']">
         <img ng-src="{{item.icon}}" />
         <h2>{{item.name}}</h2>
         <h3>{{item.formatted_date}}</h3>
@@ -19,13 +19,13 @@
         </div>
         <h3>Quantity: {{item.quantity}}</h3>
       </div>
-      <div class="item no-buys" ng-if="!vm.buys.length">
+      <div class="item no-buys" ng-if="!vm.buys.length" ng-show="vm.show['buys']">
         No Historical Buys
       </div>
     </div>
     <div class="card">
-      <div class="item item-divider">Sells</div>
-      <div class="item item-thumbnail-left" ng-repeat="item in vm.sells" ng-click="vm.itemPopup(item)">
+      <div class="item item-divider" ng-click="vm.toggleSection('sells')">Sells</div>
+      <div class="item item-thumbnail-left" ng-repeat="item in vm.sells" ng-click="vm.itemPopup(item)" ng-show="vm.show['sells']">
         <img ng-src="{{item.icon}}" />
         <h2>{{item.name}}</h2>
         <h3>{{item.formatted_date}}</h3>
@@ -36,7 +36,7 @@
         </div>
         <h3>Quantity: {{item.quantity}}</h3>
       </div>
-      <div class="item no-buys" ng-if="!vm.sells.length">
+      <div class="item no-buys" ng-if="!vm.sells.length" ng-show="vm.show['sells']">
         No historical Sells
       </div>
     </div>

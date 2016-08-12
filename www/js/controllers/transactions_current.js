@@ -11,8 +11,14 @@
     var vm = this;
     vm.buys = [];
     vm.sells = [];
+    vm.show = {
+      buys : true,
+      sells : true
+    };
     vm.itemPopup = itemPopup;
     vm.reload = reload;
+
+    vm.toggleSection = toggleSection;
 
     activate();
 
@@ -83,6 +89,10 @@
         GW2API.api.setCache(true);
         $scope.$broadcast('scroll.refreshComplete');
       });
+    }
+
+    function toggleSection(section) {
+      vm.show[section] = !vm.show[section];
     }
 
     function itemPopup(i) {
