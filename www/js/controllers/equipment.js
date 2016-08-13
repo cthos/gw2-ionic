@@ -9,6 +9,7 @@
   function CharacterEquipmentCtrl(GW2API, $stateParams, $scope, $ionicLoading, $ionicPopup) {
     var vm = this;
     vm.eqPopup = eqPopup;
+    vm.reload = reload;
 
     activate();
 
@@ -43,6 +44,15 @@
         templateUrl: "templates/popups/equipment-detail.html",
         scope: $scope,
         title: eq.name
+      });
+    }
+    
+    function reload() {
+      GW2API.api.setCache(false);
+
+      loadEquipment().then(function () {
+        GW2API.api.setCache(true);
+        $scope.$broadcast('scroll.refreshComplete');
       });
     }
   }
