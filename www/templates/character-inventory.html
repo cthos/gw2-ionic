@@ -3,6 +3,9 @@
     {{ vm.character.name }} - Inventory
   </ion-nav-title>
   <ion-content>
+    <ion-refresher
+      pulling-text="Pull to refresh..."
+      on-refresh="vm.reload()"></ion-refresher>
       <div class="card" ng-repeat="bag in vm.character.bags">
         <div class="item item-divider">{{bag.name}}</div>
         <div class="row" style="flex-wrap: wrap">

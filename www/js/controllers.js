@@ -421,28 +421,35 @@ angular.module('app.controllers', ['ionic']);
     .module('app.controllers')
     .controller('CharacterInventoryCtrl', CharacterInventoryCtrl);
 
-  CharacterInventoryCtrl.$inject = ['GW2API', '$stateParams', '$scope', 'ItemPopup'];
-  function CharacterInventoryCtrl(GW2API, $stateParams, $scope, ItemPopup) {
+  CharacterInventoryCtrl.$inject = ['GW2API', '$stateParams', '$scope', '$ionicLoading', 'ItemPopup'];
+  function CharacterInventoryCtrl(GW2API, $stateParams, $scope, $ionicLoading, ItemPopup) {
     var vm = this;
     vm.itemPopup = itemPopup;
+    vm.reload = reload;
 
     activate();
 
     ////////////////
 
     function activate() {
-      GW2API.api.getCharacters($stateParams.charname).then(function (character) {
-        $scope.$evalAsync(function () {
-          vm.character = character;
-          loadInventory();
-        });
+      $ionicLoading.show();
+
+      loadAll().then(function () {
+        $ionicLoading.hide();
+      });
+    }
+
+    function loadAll() {
+      return GW2API.api.getCharacters($stateParams.charname).then(function (character) {
+        vm.character = character;
+        return loadInventory();
       }).catch(function (e) {
         console.log(e);
       });
     }
     
     function loadInventory() {
-      GW2API.api.getDeeperInfo(GW2API.api.getItems, vm.character.bags).then(function () {
+      return GW2API.api.getDeeperInfo(GW2API.api.getItems, vm.character.bags).then(function () {
         var promises = [];
         for (var i = 0; i < vm.character.bags.length; i++) {
           var p = (function (i) {
@@ -451,7 +458,7 @@ angular.module('app.controllers', ['ionic']);
           
           promises.push(p);
         }
-        Promise.all(promises).then(function () {
+        return Promise.all(promises).then(function () {
           // Force a redraw
           $scope.$evalAsync(function () {});
         });
@@ -460,6 +467,15 @@ angular.module('app.controllers', ['ionic']);
     
     function itemPopup(i) {
       ItemPopup.pop(i, $scope);
+    }
+
+    function reload() {
+      GW2API.api.setCache(false);
+
+      loadAll().then(function () {
+        GW2API.api.setCache(true);
+        $scope.$broadcast('scroll.refreshComplete');
+      });
     }
   }
 })();
