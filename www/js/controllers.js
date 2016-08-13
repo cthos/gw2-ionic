@@ -87,6 +87,7 @@ angular.module('app.controllers', ['ionic']);
   {
     var vm = this;
     vm.showTraitDetails = showTraitDetails;
+    vm.reload = reload;
 
     activate();
 
@@ -96,12 +97,16 @@ angular.module('app.controllers', ['ionic']);
     {
       $ionicLoading.show();
 
-      GW2API.api.getCharacters($stateParams.charname).then(function (character)
+      loadData().then(function () {
+        $ionicLoading.hide();
+      });
+    }
+
+    function loadData() {
+      return GW2API.api.getCharacters($stateParams.charname).then(function (character)
       {
         vm.character = character;
-        $ionicLoading.hide();
-      })
-        .then(function ()
+      }).then(function ()
         {
           loadSpecializations();
           loadTraits();
@@ -189,6 +194,15 @@ angular.module('app.controllers', ['ionic']);
       }).catch(function (e)
       {
         console.log(e);
+      });
+    }
+
+    function reload() {
+      GW2API.api.setCache(false);
+
+      loadData().then(function () {
+        GW2API.api.setCache(true);
+        $scope.$broadcast('scroll.refreshComplete');
       });
     }
   }
