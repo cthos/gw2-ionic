@@ -52,7 +52,10 @@ angular.module('app.controllers', ['ionic']);
     ////////////////
 
     function activate() {
-      loadBank();
+      $ionicLoading.show();
+      loadBank().then(function () {
+        $ionicLoading.hide();
+      });
     }
 
     function itemPopup(i) {
