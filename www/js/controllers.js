@@ -503,8 +503,8 @@ angular.module('app.controllers', ['ionic']);
     }
   }
 })();
-(function() {
-'use strict';
+(function () {
+  'use strict';
 
   angular
     .module('app.controllers')
@@ -515,6 +515,7 @@ angular.module('app.controllers', ['ionic']);
     var vm = this;
     vm.itemPopup = itemPopup;
     vm.materialVisible = materialVisible;
+    vm.reload = reload;
 
     activate();
 
@@ -523,16 +524,22 @@ angular.module('app.controllers', ['ionic']);
     function activate() {
       $ionicLoading.show();
 
-      GW2API.api.getAccountMaterials(true).then(function (materials) {
+      loadMaterials().then(function () {
         $ionicLoading.hide();
-        $scope.$evalAsync(function () {
-          vm.materials = materials;
-        });
-      }).catch(function (e) {
+      }).catch(function () {
         $ionicLoading.hide();
       });
     }
-    
+
+    function loadMaterials() {
+      return GW2API.api.getAccountMaterials(true).then(function (materials) {
+
+        $scope.$evalAsync(function () {
+          vm.materials = materials;
+        });
+      });
+    }
+
     function itemPopup(i) {
       ItemPopup.pop(i, $scope);
     }
@@ -545,6 +552,15 @@ angular.module('app.controllers', ['ionic']);
       var matchRexp = new RegExp('.*' + vm.search + '.*', 'i');
 
       return matchRexp.test(material.name);
+    }
+
+    function reload() {
+      GW2API.api.setCache(false);
+
+      loadMaterials().then(function () {
+        GW2API.api.setCache(true);
+        $scope.$broadcast('scroll.refreshComplete');
+      });
     }
   }
 })();
