@@ -3,21 +3,27 @@
     {{ vm.character.name }} - Recipes Known
   </ion-nav-title>
   <ion-content>
-      <div class="item item-input">
-        <input type="search"
-            placeholder="Search for Recipe..."
-            ng-model="vm.search"
-            ng-change="vm.searchRecipe()">
-      </div>
-      <ion-item
-        class="item item-thumbnail-left"
-        collection-repeat="recipe in vm.visibleRecipes"
-        item-height="70px"
-        ng-click="vm.showRecipeDetails(recipe)"
-      >
-        <img style="height: 50px; width: 50px;" ng-src="{{vm.outputItems[recipe.output_item_id].icon}}" />
-        {{ vm.outputItems[recipe.output_item_id].name }}
-       
-      </ion-item>
+    <ion-refresher
+      pulling-text="Pull to refresh..."
+      on-refresh="vm.reload()"></ion-refresher>
+    <div class="item item-input">
+      <input type="search"
+          placeholder="Search for Recipe..."
+          ng-model="vm.search"
+          ng-change="vm.searchRecipe()">
+    </div>
+    <div class="error" ng-if="vm.error">
+      <ion-item>{{vm.error}}</ion-item>
+    </div>
+    <ion-item
+      class="item item-thumbnail-left"
+      collection-repeat="recipe in vm.visibleRecipes"
+      item-height="70px"
+      ng-click="vm.showRecipeDetails(recipe)"
+    >
+      <img style="height: 50px; width: 50px;" ng-src="{{vm.outputItems[recipe.output_item_id].icon}}" />
+      {{ vm.outputItems[recipe.output_item_id].name }}
+      
+    </ion-item>
   </ion-content>
 </ion-view>
