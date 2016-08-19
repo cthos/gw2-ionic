@@ -1,5 +1,5 @@
-(function() {
-'use strict';
+(function () {
+  'use strict';
 
   angular
     .module('app.controllers')
@@ -10,6 +10,7 @@
     var vm = this;
     vm.itemPopup = itemPopup;
     vm.materialVisible = materialVisible;
+    vm.reload = reload;
 
     activate();
 
@@ -18,16 +19,22 @@
     function activate() {
       $ionicLoading.show();
 
-      GW2API.api.getAccountMaterials(true).then(function (materials) {
+      loadMaterials().then(function () {
         $ionicLoading.hide();
-        $scope.$evalAsync(function () {
-          vm.materials = materials;
-        });
-      }).catch(function (e) {
+      }).catch(function () {
         $ionicLoading.hide();
       });
     }
-    
+
+    function loadMaterials() {
+      return GW2API.api.getAccountMaterials(true).then(function (materials) {
+
+        $scope.$evalAsync(function () {
+          vm.materials = materials;
+        });
+      });
+    }
+
     function itemPopup(i) {
       ItemPopup.pop(i, $scope);
     }
@@ -40,6 +47,15 @@
       var matchRexp = new RegExp('.*' + vm.search + '.*', 'i');
 
       return matchRexp.test(material.name);
+    }
+
+    function reload() {
+      GW2API.api.setCache(false);
+
+      loadMaterials().then(function () {
+        GW2API.api.setCache(true);
+        $scope.$broadcast('scroll.refreshComplete');
+      });
     }
   }
 })();

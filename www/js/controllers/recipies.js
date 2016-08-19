@@ -11,6 +11,7 @@
     vm.outputItems = {};
     vm.inputItems = {};
     vm.showRecipeDetails = showRecipeDetails;
+    vm.reload = reload;
 
     vm.showRecipe = showRecipe;
     vm.searchRecipe = searchRecipe;
@@ -23,9 +24,9 @@
       $ionicLoading.show();
 
       GW2API.api.getCharacters($stateParams.charname).then(function (character) {
-        $scope.$evalAsync(function () {
-          vm.character = character;
-          loadRecipes();
+        vm.character = character;
+        loadRecipes().then(function () {
+          $ionicLoading.hide();
         });
       }).catch(function (e) {
         console.log(e);
@@ -35,25 +36,30 @@
     function loadRecipes() {
       var outputItems = [];
 
-      GW2API.api.getDeeperInfo(GW2API.api.getRecipes, vm.character.recipes).then(function (r) {
+      return GW2API.api.getDeeperInfo(GW2API.api.getRecipes, vm.character.recipes).then(function (r) {
         r.forEach(function (rec) {
           outputItems.push(rec.output_item_id);
         });
 
         vm.recipes = r;
         vm.visibleRecipes = r;
-        loadOutputItems(outputItems);
+
+        if (!vm.recipes.length) {
+          vm.error = "Character has no recipes.";
+          return [];
+        }
+
+        return loadOutputItems(outputItems);
       }).catch(function (e) {
         console.log(e);
       });
     }
 
     function loadOutputItems(outputItems) {
-      GW2API.api.getDeeperInfo(GW2API.api.getItems, outputItems).then(function (items) {
+      return GW2API.api.getDeeperInfo(GW2API.api.getItems, outputItems).then(function (items) {
         items.forEach(function (i) {
           vm.outputItems[i.id] = i;
         });
-        $ionicLoading.hide();
         $scope.$evalAsync(function () { });
       }).catch(function (e) {
         console.log(e);
@@ -116,6 +122,15 @@
         $ionicLoading.hide();
       }).catch(function (e) {
         console.log(e);
+      });
+    }
+
+    function reload() {
+      GW2API.api.setCache(false);
+
+      loadRecipes().then(function () {
+        GW2API.api.setCache(true);
+        $scope.$broadcast('scroll.refreshComplete');
       });
     }
   }

@@ -7,7 +7,7 @@
     >
       <h2>
         {{event.localTime}} -
-        <a href="{{event.wikiLink}}" target="_system">{{event.worldBoss}}</a>
+        <a href="{{event.wikiLink}}" ng-click="$emit('open-link', event.wikiLink)" target="_system">{{event.worldBoss}}</a>
         <span class="hardcore" ng-if="event.hardcore">
           (Hardcore)
         </span>

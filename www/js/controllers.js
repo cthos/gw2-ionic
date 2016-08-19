@@ -18,6 +18,7 @@ angular.module('app.controllers', ['ionic']);
       };
 
       $scope.$on('wiki-intent', openWikiLink);
+      $scope.$on('open-link', openLink);
     }
 
     /**
@@ -26,6 +27,10 @@ angular.module('app.controllers', ['ionic']);
     function openWikiLink(event, wikiLink)
     {
       window.open('http://wiki.guildwars2.com/wiki/' + escape(wikiLink), '_system');
+    }
+
+    function openLink(event, linkLocation) {
+      window.open(linkLocation, '_system');
     }
   }
 })();
@@ -47,7 +52,10 @@ angular.module('app.controllers', ['ionic']);
     ////////////////
 
     function activate() {
-      loadBank();
+      $ionicLoading.show();
+      loadBank().then(function () {
+        $ionicLoading.hide();
+      });
     }
 
     function itemPopup(i) {
@@ -276,8 +284,8 @@ angular.module('app.controllers', ['ionic']);
     }
   }
 })();
-(function() {
-'use strict';
+(function () {
+  'use strict';
 
   angular
     .module('app.controllers')
@@ -286,17 +294,33 @@ angular.module('app.controllers', ['ionic']);
   CharacterViewCtrl.$inject = ['$scope', '$ionicLoading', '$stateParams', 'GW2API'];
   function CharacterViewCtrl($scope, $ionicLoading, $stateParams, GW2API) {
     var vm = this;
-    
+
+    vm.reload = reload;
+
     activate();
 
     ////////////////
 
-    function activate() { 
+    function activate() {
       $ionicLoading.show();
 
-      GW2API.api.getCharacters($stateParams.charname).then(function (character) {
-        vm.character = character;
+      loadCharacters().then(function () {
         $ionicLoading.hide();
+      });
+    }
+
+    function loadCharacters() {
+      return GW2API.api.getCharacters($stateParams.charname).then(function (character) {
+        vm.character = character;
+      });
+    }
+
+    function reload() {
+      GW2API.api.setCache(false);
+
+      loadCharacters().then(function () {
+        GW2API.api.setCache(true);
+        $scope.$broadcast('scroll.refreshComplete');
       });
     }
   }
@@ -479,8 +503,8 @@ angular.module('app.controllers', ['ionic']);
     }
   }
 })();
-(function() {
-'use strict';
+(function () {
+  'use strict';
 
   angular
     .module('app.controllers')
@@ -491,6 +515,7 @@ angular.module('app.controllers', ['ionic']);
     var vm = this;
     vm.itemPopup = itemPopup;
     vm.materialVisible = materialVisible;
+    vm.reload = reload;
 
     activate();
 
@@ -499,16 +524,22 @@ angular.module('app.controllers', ['ionic']);
     function activate() {
       $ionicLoading.show();
 
-      GW2API.api.getAccountMaterials(true).then(function (materials) {
+      loadMaterials().then(function () {
         $ionicLoading.hide();
-        $scope.$evalAsync(function () {
-          vm.materials = materials;
-        });
-      }).catch(function (e) {
+      }).catch(function () {
         $ionicLoading.hide();
       });
     }
-    
+
+    function loadMaterials() {
+      return GW2API.api.getAccountMaterials(true).then(function (materials) {
+
+        $scope.$evalAsync(function () {
+          vm.materials = materials;
+        });
+      });
+    }
+
     function itemPopup(i) {
       ItemPopup.pop(i, $scope);
     }
@@ -521,6 +552,15 @@ angular.module('app.controllers', ['ionic']);
       var matchRexp = new RegExp('.*' + vm.search + '.*', 'i');
 
       return matchRexp.test(material.name);
+    }
+
+    function reload() {
+      GW2API.api.setCache(false);
+
+      loadMaterials().then(function () {
+        GW2API.api.setCache(true);
+        $scope.$broadcast('scroll.refreshComplete');
+      });
     }
   }
 })();
@@ -616,6 +656,7 @@ angular.module('app.controllers', ['ionic']);
     vm.outputItems = {};
     vm.inputItems = {};
     vm.showRecipeDetails = showRecipeDetails;
+    vm.reload = reload;
 
     vm.showRecipe = showRecipe;
     vm.searchRecipe = searchRecipe;
@@ -628,9 +669,9 @@ angular.module('app.controllers', ['ionic']);
       $ionicLoading.show();
 
       GW2API.api.getCharacters($stateParams.charname).then(function (character) {
-        $scope.$evalAsync(function () {
-          vm.character = character;
-          loadRecipes();
+        vm.character = character;
+        loadRecipes().then(function () {
+          $ionicLoading.hide();
         });
       }).catch(function (e) {
         console.log(e);
@@ -640,25 +681,30 @@ angular.module('app.controllers', ['ionic']);
     function loadRecipes() {
       var outputItems = [];
 
-      GW2API.api.getDeeperInfo(GW2API.api.getRecipes, vm.character.recipes).then(function (r) {
+      return GW2API.api.getDeeperInfo(GW2API.api.getRecipes, vm.character.recipes).then(function (r) {
         r.forEach(function (rec) {
           outputItems.push(rec.output_item_id);
         });
 
         vm.recipes = r;
         vm.visibleRecipes = r;
-        loadOutputItems(outputItems);
+
+        if (!vm.recipes.length) {
+          vm.error = "Character has no recipes.";
+          return [];
+        }
+
+        return loadOutputItems(outputItems);
       }).catch(function (e) {
         console.log(e);
       });
     }
 
     function loadOutputItems(outputItems) {
-      GW2API.api.getDeeperInfo(GW2API.api.getItems, outputItems).then(function (items) {
+      return GW2API.api.getDeeperInfo(GW2API.api.getItems, outputItems).then(function (items) {
         items.forEach(function (i) {
           vm.outputItems[i.id] = i;
         });
-        $ionicLoading.hide();
         $scope.$evalAsync(function () { });
       }).catch(function (e) {
         console.log(e);
@@ -721,6 +767,15 @@ angular.module('app.controllers', ['ionic']);
         $ionicLoading.hide();
       }).catch(function (e) {
         console.log(e);
+      });
+    }
+
+    function reload() {
+      GW2API.api.setCache(false);
+
+      loadRecipes().then(function () {
+        GW2API.api.setCache(true);
+        $scope.$broadcast('scroll.refreshComplete');
       });
     }
   }

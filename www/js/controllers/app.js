@@ -17,6 +17,7 @@
       };
 
       $scope.$on('wiki-intent', openWikiLink);
+      $scope.$on('open-link', openLink);
     }
 
     /**
@@ -25,6 +26,10 @@
     function openWikiLink(event, wikiLink)
     {
       window.open('http://wiki.guildwars2.com/wiki/' + escape(wikiLink), '_system');
+    }
+
+    function openLink(event, linkLocation) {
+      window.open(linkLocation, '_system');
     }
   }
 })();

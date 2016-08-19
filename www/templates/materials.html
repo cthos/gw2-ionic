@@ -3,6 +3,9 @@
     Account Material Storage
   </ion-nav-title>
   <ion-content>
+    <ion-refresher
+      pulling-text="Pull to refresh..."
+      on-refresh="vm.reload()"></ion-refresher>
     <div class="item item-input">
       <input type="search"
           placeholder="Search for Material..."
