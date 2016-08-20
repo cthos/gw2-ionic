@@ -1,4 +1,4 @@
-describe('GW2API', function () {
+describe('ItemPopup', function () {
   var ItemPopup, $scope;
   var alertSpy;
   var expect = chai.expect;

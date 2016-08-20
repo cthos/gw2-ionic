@@ -1,4 +1,4 @@
-describe('GW2API', function () {
+describe('CurrencyFormatter', function () {
   var CurrencyFormatter, $scope, $q;
   var expect = chai.expect;
 
