@@ -28,7 +28,8 @@
     "shelljs": "^0.3.0",
     "sinon": "^1.17.5",
     "sinon-chai": "^2.8.0",
-    "vinyl-source-stream": "^1.1.0"
+    "vinyl-source-stream": "^1.1.0",
+    "wd": "^0.4.0"
   },
   "cordovaPlugins": [
     "cordova-plugin-device",
