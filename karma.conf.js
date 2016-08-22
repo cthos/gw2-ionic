@@ -18,7 +18,7 @@ module.exports = function(config) {
       'www/js/app.js',
       'www/js/controllers.js',
       'www/js/services.js',
-      'tests/**',
+      'tests/karma/**',
       'www/templates/**/*.html'
     ],
 

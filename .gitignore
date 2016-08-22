@@ -9,3 +9,5 @@ plugins/
 *.iml
 
 .DS_Store
+
+venv
