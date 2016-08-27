@@ -24,7 +24,7 @@ Scenario: WVW is where it's at
 
 Scenario: Boss Timers are my jam
   Given I have opened the app
-  And I'm on he daily page
+  And I'm on the daily page
   When I visit the event timers page
   Then Those bosses won't know what hit them
 

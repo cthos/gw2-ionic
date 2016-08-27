@@ -9,5 +9,6 @@ plugins/
 *.iml
 
 .DS_Store
+.cache
 
 venv
