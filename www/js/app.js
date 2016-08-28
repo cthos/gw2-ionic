@@ -98,6 +98,13 @@ angular.module('app', ['ionic', 'app.controllers', 'app.services'])
     }
   })
 
+  .state('achievements', {
+    url: '/achievements',
+    templateUrl : 'templates/achievements.html',
+    controller : 'AchievementCtrl as vm',
+    parent : 'app'
+  })
+
   .state('characters', {
     url: '/characters',
     templateUrl : 'templates/characters.html',
