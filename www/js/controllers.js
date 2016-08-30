@@ -26,6 +26,8 @@ angular.module('app.controllers', ['ionic']);
     {
       return GW2API.api.getAccountAchievements(true).then(function (achs) {
         console.log(achs);
+
+        vm.achievements = achs;
       });
     }
   }
