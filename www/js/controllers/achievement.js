@@ -10,7 +10,9 @@
     var vm = this;
     vm.showAchievementDetails = showAchievementDetails;
     vm.calcGradientPercent = calcGradientPercent;
-    vm.achievements = [];
+    vm.achievements = vm.visibleAchievements = [];
+    vm.searchAchievements = searchAchievements;
+
     activate();
 
     ////////////////
@@ -23,11 +25,24 @@
       });
     }
 
+    function searchAchievements() {
+      if (!vm.search) {
+        vm.visibleAchievements = vm.achievements;
+        return;
+      }
+
+      var matchRexp = new RegExp('.*' + vm.search + '.*', 'i');
+
+      vm.visibleAchievements = vm.achievements.filter(function (item) {
+        return matchRexp.test(item.name);
+      });
+    }
+
     function loadAchievements() {
       return GW2API.api.getAccountAchievements(true).then(function (achs) {
         console.log(achs);
 
-        vm.achievements = achs;
+        vm.achievements = vm.visibleAchievements = achs;
       });
     }
 
