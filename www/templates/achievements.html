@@ -3,23 +3,15 @@
     Account Achievements
   </ion-nav-title>
   <ion-content>
-    <ion-refresher
-      pulling-text="Pull to refresh..."
-      on-refresh="vm.reload()"></ion-refresher>
-    <ion-item
-      class="item item-thumbnail-left"
-      collection-repeat="ach in vm.achievements"
-      item-height="70px"
-      ng-click="vm.showAchievementDetails(ach)"
-    >
-      <img style="height: 50px; width: 50px;" ng-if="ach.done" src="" />
-      <div>
-        {{ ach.name }}
-      </div>
-      <div>
-        {{ach.current}}
-      </div>
-      
+    <ion-refresher pulling-text="Pull to refresh..." on-refresh="vm.reload()"></ion-refresher>
+    <ion-item class="item item-thumbnail-left" style="background: -webkit-linear-gradient(0deg, #cc3333 {{vm.calcGradientPercent(ach)}}%, white {{vm.calcGradientPercent(ach)}}%)" ng-repeat="ach in vm.achievements" item-height="70px" ng-click="vm.showAchievementDetails(ach)">
+        <img style="height: 50px; width: 50px;" ng-if="ach.done" src="" />
+        <div>
+          {{ ach.name }}
+        </div>
+        <div>
+          {{ach.current}}
+        </div>
     </ion-item>
   </ion-content>
 </ion-view>

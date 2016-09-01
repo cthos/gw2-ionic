@@ -9,6 +9,7 @@
   function AchievementController(GW2API, $ionicLoading, $scope, $ionicPopup) {
     var vm = this;
     vm.showAchievementDetails = showAchievementDetails;
+    vm.calcGradientPercent = calcGradientPercent;
     vm.achievements = [];
     activate();
 
@@ -38,6 +39,10 @@
         scope: $scope,
         title: achievement.name
       });
+    }
+
+    function calcGradientPercent(achievement) {
+      return Math.round(achievement.current / achievement.max * 100);
     }
   }
 })();
