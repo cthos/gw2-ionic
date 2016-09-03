@@ -13,6 +13,7 @@ angular.module('app.controllers', ['ionic']);
     vm.calcGradientPercent = calcGradientPercent;
     vm.achievements = vm.visibleAchievements = [];
     vm.searchAchievements = searchAchievements;
+    vm.reload = reload;
 
     activate();
 
@@ -44,6 +45,15 @@ angular.module('app.controllers', ['ionic']);
         console.log(achs);
 
         vm.achievements = vm.visibleAchievements = achs;
+      });
+    }
+
+    function reload() {
+      GW2API.api.setCache(false);
+      loadAchievements().then(function (achs) {
+        GW2API.api.setCache(true);
+
+        $scope.$broadcast('scroll.refreshComplete');
       });
     }
 

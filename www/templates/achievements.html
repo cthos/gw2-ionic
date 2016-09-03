@@ -12,7 +12,12 @@
           ng-change="vm.searchAchievements()" />
     </div>
 
-    <ion-item class="item item-thumbnail-left achievement-background" style="background: -webkit-linear-gradient(0deg, rgba(204, 51, 51, 0.8) {{vm.calcGradientPercent(ach)}}%, white {{vm.calcGradientPercent(ach)}}%)" ng-repeat="ach in vm.visibleAchievements" item-height="70px" ng-click="vm.showAchievementDetails(ach)">
+    <ion-item
+      class="item item-thumbnail-left achievement-background"
+      style="background: -webkit-linear-gradient(0deg, rgba(204, 51, 51, 0.8) {{vm.calcGradientPercent(ach)}}%, white {{vm.calcGradientPercent(ach)}}%)"
+      ng-repeat="ach in vm.visibleAchievements"
+      item-height="70px"
+      ng-click="vm.showAchievementDetails(ach)">
         <img style="height: 50px; width: 50px;" ng-if="ach.done" src="/img/checkmark.png" />
         <h2>
           {{ ach.name }}
