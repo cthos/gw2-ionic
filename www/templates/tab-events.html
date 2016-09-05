@@ -2,7 +2,7 @@
   <ion-content class="padding">
     <ion-item
       class="item"
-      ng-repeat="event in vm.events"
+      ng-repeat="event in vm.events track by $index"
       item-height="100px"
     >
       <h2>
