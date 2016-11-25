@@ -12,6 +12,12 @@
           ng-change="vm.searchAchievements()" />
     </div>
 
+    <div class="card" ng-if="vm.error">
+      <div class="item">
+        {{ vm.error }}
+      </div>
+    </div>
+
     <ion-item
       class="item item-thumbnail-left achievement-background"
       style="background: -webkit-linear-gradient(0deg, rgba(204, 51, 51, 0.8) {{vm.calcGradientPercent(ach)}}%, white {{vm.calcGradientPercent(ach)}}%)"

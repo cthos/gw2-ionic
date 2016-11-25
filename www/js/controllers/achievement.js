@@ -44,6 +44,9 @@
         console.log(achs);
 
         vm.achievements = vm.visibleAchievements = achs;
+      }).catch(function (err) {
+        $ionicLoading.hide();
+        vm.error = "There was an error. Ensure you have entered your API token.";
       });
     }
 

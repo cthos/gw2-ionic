@@ -23,6 +23,7 @@
         $ionicLoading.hide();
       }).catch(function () {
         $ionicLoading.hide();
+        vm.error = "Please set your API token in settings."
       });
     }
 

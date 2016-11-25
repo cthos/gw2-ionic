@@ -31,6 +31,8 @@
         $scope.$evalAsync(function () {
           vm.bank = bank;
         });
+      }).catch(function (e) {
+        vm.error = "Please set your API token in settings."
       });
     }
 

@@ -13,6 +13,12 @@
           ng-change="vm.searchRecipe()">
     </div>
     
+    <div class="card" ng-if="vm.error">
+      <div class="item">
+        {{ vm.error }}
+      </div>
+    </div>
+
     <div class="row" style="flex-wrap: wrap">
       <div class="col col-20" ng-repeat="item in vm.materials track by $index" ng-click="vm.itemPopup(item)" ng-if="vm.materialVisible(item)">
         <img ng-if="item" class="inventory-icon {{item.rarity.toLowerCase()}}-border" ng-src="{{item.icon}}" alt="">

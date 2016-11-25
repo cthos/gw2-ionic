@@ -45,6 +45,9 @@ angular.module('app.controllers', ['ionic']);
         console.log(achs);
 
         vm.achievements = vm.visibleAchievements = achs;
+      }).catch(function (err) {
+        $ionicLoading.hide();
+        vm.error = "There was an error. Ensure you have entered your API token.";
       });
     }
 
@@ -140,6 +143,8 @@ angular.module('app.controllers', ['ionic']);
         $scope.$evalAsync(function () {
           vm.bank = bank;
         });
+      }).catch(function (e) {
+        vm.error = "Please set your API token in settings."
       });
     }
 
@@ -602,6 +607,7 @@ angular.module('app.controllers', ['ionic']);
         $ionicLoading.hide();
       }).catch(function () {
         $ionicLoading.hide();
+        vm.error = "Please set your API token in settings."
       });
     }
 
