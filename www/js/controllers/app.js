@@ -25,11 +25,11 @@
      */
     function openWikiLink(event, wikiLink)
     {
-      window.open('http://wiki.guildwars2.com/wiki/' + escape(wikiLink), '_system');
+      window.open('http://wiki.guildwars2.com/wiki/' + escape(wikiLink), '_blank');
     }
 
     function openLink(event, linkLocation) {
-      window.open(linkLocation, '_system');
+      window.open(linkLocation, '_blank');
     }
   }
 })();

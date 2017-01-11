@@ -42,10 +42,25 @@
       "locator": "https://github.com/gitawego/cordova-screenshot.git",
       "id": "com.darktalker.cordova.screenshot"
     },
-    "cordova-plugin-inappbrowser"
+    "cordova-plugin-inappbrowser",
+    "cordova-plugin-compat",
+    {
+      "locator": "https://github.com/phonegap/phonegap-plugin-barcodescanner.git",
+      "id": "phonegap-plugin-barcodescanner"
+    }
   ],
   "cordovaPlatforms": [
     "android",
-    "ios"
+    "ios",
+    {
+      "platform": "android",
+      "version": "",
+      "locator": "android"
+    },
+    {
+      "platform": "ios",
+      "version": "",
+      "locator": "ios"
+    }
   ]
 }
