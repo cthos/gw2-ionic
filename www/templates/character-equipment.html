@@ -10,8 +10,8 @@
       <div class="item item-divider">
         Gear
       </div>
-      <div class="row" style="flex-wrap: wrap">
-        <div class="env col" ng-repeat="eq in vm.character.equipment" ng-click="vm.eqPopup(eq)">
+      <div class="row" style="display: flex; flex-wrap: wrap">
+        <div class="env" style="width: 70px;" ng-repeat="eq in vm.character.equipment" ng-click="vm.eqPopup(eq)">
           <img ng-src="{{eq.icon}}" />
           <p>{{eq.name}}</p>
         </div>
