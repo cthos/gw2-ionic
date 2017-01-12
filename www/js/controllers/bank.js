@@ -22,7 +22,15 @@
       });
     }
 
-    function itemPopup(i) {
+    function itemPopup($event) {
+      var iIndex = $event.target.getAttribute('data-item-index');
+
+      if (typeof iIndex == 'undefined') {
+        return;
+      }
+
+      var i = vm.bank[iIndex];
+
       ItemPopup.pop(i, $scope);
     }
 

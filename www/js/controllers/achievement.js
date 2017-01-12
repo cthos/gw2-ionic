@@ -41,8 +41,6 @@
 
     function loadAchievements() {
       return GW2API.api.getAccountAchievements(true).then(function (achs) {
-        console.log(achs);
-
         vm.achievements = vm.visibleAchievements = achs;
       }).catch(function (err) {
         $ionicLoading.hide();

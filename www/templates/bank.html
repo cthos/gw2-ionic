@@ -11,9 +11,9 @@
       </div>
     </div>
 
-    <div class="row" style="flex-wrap: wrap">
-      <div class="col col-20" ng-repeat="item in vm.bank track by $index" ng-click="vm.itemPopup(item)">
-        <img ng-if="item" class="inventory-icon {{item.rarity.toLowerCase()}}-border" ng-src="{{item.icon}}" alt="">
+    <div class="row" style="flex-wrap: wrap" ng-click="vm.itemPopup($event)">
+      <div class="col col-20" ng-repeat="item in vm.bank track by $index">
+        <img ng-if="item" class="inventory-icon {{item.rarity.toLowerCase()}}-border" ng-src="{{item.icon}}" data-item-index="{{$index}}">
         <span ng-if="item" class="inventory-count">{{item.count}}</span>
         <div ng-if="!item" class="item-empty-slot"></div>
       </div>

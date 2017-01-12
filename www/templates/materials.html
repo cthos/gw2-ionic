@@ -10,7 +10,7 @@
       <input type="search"
           placeholder="Search for Material..."
           ng-model="vm.search"
-          ng-change="vm.searchRecipe()">
+          ng-model-options="{debounce: 200}">
     </div>
     
     <div class="card" ng-if="vm.error">
@@ -19,12 +19,14 @@
       </div>
     </div>
 
-    <div class="row" style="flex-wrap: wrap">
-      <div class="col col-20" ng-repeat="item in vm.materials track by $index" ng-click="vm.itemPopup(item)" ng-if="vm.materialVisible(item)">
-        <img ng-if="item" class="inventory-icon {{item.rarity.toLowerCase()}}-border" ng-src="{{item.icon}}" alt="">
+    <div class="flex-box row" style="flex-wrap: wrap;" ng-click="vm.itemPopup($event)">
+      <div class="col col-20" ng-repeat="item in vm.visibleMaterials track by $index">
+        <img ng-if="item" class="inventory-icon {{item.rarity.toLowerCase()}}-border" ng-src="{{item.icon}}" alt="" data-item-index="{{$index}}">
         <span ng-if="item" class="inventory-count">{{item.count}}</span>
         <div ng-if="!item" class="item-empty-slot"></div>
       </div>
     </div>
+    <ion-infinite-scroll ng-if="vm.visibleMaterials.length < vm.materials.length" on-infinite="vm.showMoreOnBottom()">
+    </ion-infinite-scroll>
   </ion-content>
 </ion-view>

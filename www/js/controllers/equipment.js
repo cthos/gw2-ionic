@@ -36,8 +36,11 @@
       });
     }
     
-    function eqPopup(eq)
+    function eqPopup($event)
     {
+      var eqIndex = $event.target.parentNode.getAttribute('data-eq-index');
+      var eq = vm.character.equipment[eqIndex];
+
       $scope.eq = eq;
       
       var myPopup = $ionicPopup.alert({
