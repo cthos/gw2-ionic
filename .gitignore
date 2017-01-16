@@ -5,6 +5,8 @@ node_modules/
 platforms/
 plugins/
 
+.vscode
+
 .idea
 *.iml
 
@@ -12,3 +14,8 @@ plugins/
 .cache
 
 venv
+*.pyc
+__pycache__
+pyenv
+wheelhouse*
+test_bundle.zip
