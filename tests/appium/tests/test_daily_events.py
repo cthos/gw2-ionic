@@ -40,7 +40,17 @@ def test_wvw_is_where_its_at():
 def i_have_opened_the_app(context):
     """I have opened the app."""
     webview = context.driver.contexts[-1]
-    context.driver.switch_to.context(webview)
+    i = 0
+    while True:
+        try:
+            context.driver.switch_to.context(webview)
+            break
+        except:
+            time.sleep(2)
+        finally:
+            i += 1
+            if i >= 5:
+                break
 
 
 @given('I\'m on the daily page')

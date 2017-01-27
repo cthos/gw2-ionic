@@ -23,7 +23,11 @@ def context(request):
     context.driver.implicitly_wait(45)
 
     def fin():
-        context.driver.quit()
+        try:
+            context.driver.quit()
+        except:
+            pass
+            
     request.addfinalizer(fin)
 
     return context
