@@ -20,6 +20,11 @@ angular.module('app.controllers', ['ionic']);
     ////////////////
 
     function activate() {
+      if (!GW2API.api.getAPIKey()) {
+        vm.error = "Please set your API key in Settings";
+        return;
+      }
+
       $ionicLoading.show();
 
       loadAchievements().then(function () {
@@ -1064,6 +1069,11 @@ angular.module('app.controllers', ['ionic']);
     ////////////////
 
     function activate() {
+      if (!GW2API.api.getAPIKey()) {
+        vm.error = "Please set your API key in Settings";
+        return;
+      }
+      
       $ionicLoading.show();
 
       loadTransactions().then(function () {
@@ -1167,6 +1177,11 @@ angular.module('app.controllers', ['ionic']);
     ////////////////
 
     function activate() {
+      if (!GW2API.api.getAPIKey()) {
+        vm.error = "Please set your API key in Settings";
+        return;
+      }
+      
       $ionicLoading.show();
 
       loadTransactions().then(function () {

@@ -26,6 +26,11 @@
     ////////////////
 
     function activate() {
+      if (!GW2API.api.getAPIKey()) {
+        vm.error = "Please set your API key in Settings";
+        return;
+      }
+      
       $ionicLoading.show();
 
       loadTransactions().then(function () {
