@@ -68,7 +68,7 @@ gulp.task('git-check', function(done) {
 
 gulp.task('browserify', function() {
   return browserify()
-    .require(['gw2-api', 'gw2-events', 'moment'])
+    .require(['gw2-api', 'gw2-events', 'moment', 'moment-timezone'])
     .bundle()
     .pipe(vinylSource('gw2-api.js'))
     .pipe(gulp.dest('./www/lib/'));

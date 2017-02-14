@@ -30,8 +30,6 @@
       var laterEvents = [];
 
       events.forEach(function (event, index) {
-        event.localTime = moment.unix(event.unixtime).format('h:mm A');
-        
         if (event.unixtime < now) {
           laterEvents.push(event);
           return;
@@ -41,9 +39,6 @@
       });
 
       vm.events = vm.events.concat(laterEvents);
-
-      console.log(vm.events);
-
       $ionicLoading.hide();
     }
 
