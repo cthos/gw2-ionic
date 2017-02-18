@@ -22,6 +22,11 @@
         return;
       }
 
+      if (!GW2API.tokenHasPermission('wallet')) {
+        vm.error = "That token does not have 'wallet' permission.";
+        return;
+      }
+
       $ionicLoading.show();
 
       loadWallet();

@@ -326,16 +326,17 @@ angular.module('app.controllers', ['ionic']);
         return;
       }
 
-      if (!GW2API.tokenHasPermission('characters')) {
-        vm.error = "That token does not have 'characters' permission.";
-        return;
-      }
-
       vm.error = null;
       vm.professionsMap = {};
       vm.characters = [];
 
-      loadCharacterData();
+      GW2API.tokenHasPermission('characters').then(function (hasPerm) {
+        if (hasPerm) {
+          return loadCharacterData();
+        }
+        
+        vm.error = "Your API token needs the 'characters' permission to access this page.";
+      });
     }
 
     function loadCharacterData() {
@@ -615,8 +616,6 @@ angular.module('app.controllers', ['ionic']);
     ////////////////
 
     function activate() {
-      $ionicLoading.show();
-
       $scope.$watch('vm.search', filterVisibleMaterials);
 
       $scope.$on('$ionicView.leave', function (ev) {
@@ -624,12 +623,20 @@ angular.module('app.controllers', ['ionic']);
         respliceMaterials();
       });
 
-      loadMaterials().then(function () {
-        $ionicLoading.hide();
-      }).catch(function () {
-        $ionicLoading.hide();
-        vm.error = "Please set your API token in settings."
-      });
+      GW2API.tokenHasPermission('inventories').then(function (hasPerm) {
+          if (hasPerm) {
+            $ionicLoading.show();
+
+            return loadMaterials().then(function () {
+              $ionicLoading.hide();
+            }).catch(function () {
+              $ionicLoading.hide();
+              vm.error = "Please set your API token in settings."
+            });
+          }
+          
+          vm.error = "Your API token needs the 'inventories' permission to access this page.";
+        });
     }
 
     function loadMaterials() {
@@ -1068,11 +1075,17 @@ angular.module('app.controllers', ['ionic']);
         vm.error = "Please set your API key in Settings";
         return;
       }
-      
-      $ionicLoading.show();
 
-      loadTransactions().then(function () {
-        $ionicLoading.hide();
+      GW2API.tokenHasPermission('tradingpost').then(function (hasPerm) {
+        if (hasPerm) {
+          $ionicLoading.show();
+
+          return loadTransactions().then(function () {
+            $ionicLoading.hide();
+          });
+        }
+        
+        vm.error = "Your API token needs the 'tradingpost' permission to access this page.";
       });
     }
 
@@ -1176,11 +1189,17 @@ angular.module('app.controllers', ['ionic']);
         vm.error = "Please set your API key in Settings";
         return;
       }
-      
-      $ionicLoading.show();
 
-      loadTransactions().then(function () {
-        $ionicLoading.hide();
+      GW2API.tokenHasPermission('tradingpost').then(function (hasPerm) {
+        if (hasPerm) {
+          $ionicLoading.show();
+
+          loadTransactions().then(function () {
+            $ionicLoading.hide();
+          });
+        }
+        
+        vm.error = "Your API token needs the 'tradingpost' permission to access this page.";
       });
     }
 
@@ -1271,6 +1290,11 @@ angular.module('app.controllers', ['ionic']);
     function activate() {
        if (!GW2API.api.getAPIKey()) {
         vm.error = "Please set your API key in Settings";
+        return;
+      }
+
+      if (!GW2API.tokenHasPermission('wallet')) {
+        vm.error = "That token does not have 'wallet' permission.";
         return;
       }
 

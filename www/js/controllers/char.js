@@ -20,16 +20,17 @@
         return;
       }
 
-      if (!GW2API.tokenHasPermission('characters')) {
-        vm.error = "That token does not have 'characters' permission.";
-        return;
-      }
-
       vm.error = null;
       vm.professionsMap = {};
       vm.characters = [];
 
-      loadCharacterData();
+      GW2API.tokenHasPermission('characters').then(function (hasPerm) {
+        if (hasPerm) {
+          return loadCharacterData();
+        }
+        
+        vm.error = "Your API token needs the 'characters' permission to access this page.";
+      });
     }
 
     function loadCharacterData() {

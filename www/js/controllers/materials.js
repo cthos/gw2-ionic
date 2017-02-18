@@ -22,8 +22,6 @@
     ////////////////
 
     function activate() {
-      $ionicLoading.show();
-
       $scope.$watch('vm.search', filterVisibleMaterials);
 
       $scope.$on('$ionicView.leave', function (ev) {
@@ -31,12 +29,20 @@
         respliceMaterials();
       });
 
-      loadMaterials().then(function () {
-        $ionicLoading.hide();
-      }).catch(function () {
-        $ionicLoading.hide();
-        vm.error = "Please set your API token in settings."
-      });
+      GW2API.tokenHasPermission('inventories').then(function (hasPerm) {
+          if (hasPerm) {
+            $ionicLoading.show();
+
+            return loadMaterials().then(function () {
+              $ionicLoading.hide();
+            }).catch(function () {
+              $ionicLoading.hide();
+              vm.error = "Please set your API token in settings."
+            });
+          }
+          
+          vm.error = "Your API token needs the 'inventories' permission to access this page.";
+        });
     }
 
     function loadMaterials() {

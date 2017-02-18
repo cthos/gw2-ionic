@@ -29,11 +29,17 @@
         vm.error = "Please set your API key in Settings";
         return;
       }
-      
-      $ionicLoading.show();
 
-      loadTransactions().then(function () {
-        $ionicLoading.hide();
+      GW2API.tokenHasPermission('tradingpost').then(function (hasPerm) {
+        if (hasPerm) {
+          $ionicLoading.show();
+
+          return loadTransactions().then(function () {
+            $ionicLoading.hide();
+          });
+        }
+        
+        vm.error = "Your API token needs the 'tradingpost' permission to access this page.";
       });
     }
 

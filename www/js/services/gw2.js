@@ -68,13 +68,17 @@
       });
     }
 
-    function tokenHasPermission() {
+    function tokenHasPermission(permission) {
       if (!this.tokenPerms) {
         var that = this;
         return api.getTokenInfo().then(function (info) {
           that.tokenPerms = info.permissions;
+
+          return that.tokenPerms.indexOf(permission) !== -1;
         });
       }
+
+      return Promise.resolve(this.tokenPerms.indexOf(permission) !== -1);
     }
   }
 })();
