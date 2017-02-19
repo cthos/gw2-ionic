@@ -7,31 +7,36 @@
       </label>
     </div>
     <div class="item item-text-wrap instructions">
+      <h3>API Token</h3>
       <p>
-        To obtain an API key, go to <a href="#" ng-click="$emit('open-link', 'https://account.arena.net/applications')">https://account.arena.net/applications</a>
-        and generate a new token. Then place this token in the space above.
+        To obtain an API key, go to <a href="#" ng-click="$emit('open-link', 'https://account.arena.net/applications')">https://account.arena.net/applications</a> and generate a new token. 
+        
+        Then copy that token in the space above.
       </p>
-      <p>Or:</p>
+      <p>You may also scan an API token's barcode using this button.</p>
       <p>
         <button class="button button-assertive" ng-click="vm.scanBarcode()">
           Scan Barcode
         </button>
       </p>
+
+    </div>
+    <div class="item item-text-wrap instructions">
       <p>
-         This application uses the following permissions:
+        This application uses as many permissions as it can, if you disable a certain permission the relevant page will not work.
       </p>
-      <div>
-        <ul class="bullet-list">
-          <li>Builds</li>
-          <li>Characters</li>
-          <li>Wallet</li>
-        </ul>
-      </div>
     </div>
     <div class="item item-text-wrap">
       <button class="button button-positive" ng-click="vm.clearCache()">
         Clear Cache
       </button>
+    </div>
+
+    <div class="item item-text-wrap instructions">
+      <h3>Credits</h3>
+      <p>
+        This app was written by doogiemac and cthos.
+      </p>
     </div>
   </ion-content>
 </ion-view>

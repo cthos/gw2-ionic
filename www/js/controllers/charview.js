@@ -16,10 +16,17 @@
     ////////////////
 
     function activate() {
-      $ionicLoading.show();
 
-      loadCharacters().then(function () {
-        $ionicLoading.hide();
+      GW2API.tokenHasPermission('characters').then(function (hasPerm) {
+        if (hasPerm) {
+          $ionicLoading.show();
+
+          loadCharacters().then(function () {
+            $ionicLoading.hide();
+          });
+        }
+        
+        vm.error = "Your API token needs the 'builds' permission to access this page.";
       });
     }
 

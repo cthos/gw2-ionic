@@ -25,10 +25,14 @@ angular.module('app.controllers', ['ionic']);
         return;
       }
 
-      $ionicLoading.show();
-
-      loadAchievements().then(function () {
-        $ionicLoading.hide();
+       GW2API.tokenHasPermission('progression').then(function (hasPerm) {
+        if (hasPerm) {
+          return loadAchievements().then(function () {
+            $ionicLoading.hide();
+          });
+        }
+        
+        vm.error = "Your API token needs the 'progression' permission to access this page.";
       });
     }
 
@@ -131,10 +135,18 @@ angular.module('app.controllers', ['ionic']);
     ////////////////
 
     function activate() {
-      $ionicLoading.show();
-      loadBank().then(function () {
-        $ionicLoading.hide();
+      GW2API.tokenHasPermission('inventories').then(function (hasPerm) {
+        if (hasPerm) {
+          return loadBank().then(function () {
+            $ionicLoading.hide();
+          });
+        }
+        
+        vm.error = "Your API token needs the 'inventories' permission to access this page.";
       });
+
+      $ionicLoading.show();
+      
     }
 
     function itemPopup($event) {
@@ -192,10 +204,16 @@ angular.module('app.controllers', ['ionic']);
 
     function activate()
     {
-      $ionicLoading.show();
+      GW2API.tokenHasPermission('builds').then(function (hasPerm) {
+        if (hasPerm) {
+          $ionicLoading.show();
 
-      loadData().then(function () {
-        $ionicLoading.hide();
+          loadData().then(function () {
+            $ionicLoading.hide();
+          });
+        }
+        
+        vm.error = "Your API token needs the 'builds' permission to access this page.";
       });
     }
 
@@ -392,10 +410,17 @@ angular.module('app.controllers', ['ionic']);
     ////////////////
 
     function activate() {
-      $ionicLoading.show();
 
-      loadCharacters().then(function () {
-        $ionicLoading.hide();
+      GW2API.tokenHasPermission('characters').then(function (hasPerm) {
+        if (hasPerm) {
+          $ionicLoading.show();
+
+          loadCharacters().then(function () {
+            $ionicLoading.hide();
+          });
+        }
+        
+        vm.error = "Your API token needs the 'builds' permission to access this page.";
       });
     }
 
@@ -435,14 +460,24 @@ angular.module('app.controllers', ['ionic']);
     function activate() {
       $ionicLoading.show();
 
-      GW2API.api.getCharacters($stateParams.charname).then(function (character) {
-        $scope.$evalAsync(function () {
-          vm.character = character;
-          loadEquipment();
-        });
-      }).catch(function (e) {
-          console.log(e);
+      GW2API.tokenHasPermission('builds').then(function (hasPerm) {
+        if (hasPerm) {
+          $ionicLoading.show();
+
+          return GW2API.api.getCharacters($stateParams.charname).then(function (character) {
+            $scope.$evalAsync(function () {
+              vm.character = character;
+              loadEquipment();
+            });
+          }).catch(function (e) {
+              console.log(e);
+          });
+        }
+        
+        vm.error = "Your API token needs the 'builds' permission to access this page.";
       });
+
+      
     }
     
     function loadEquipment()
@@ -547,8 +582,16 @@ angular.module('app.controllers', ['ionic']);
     function activate() {
       $ionicLoading.show();
 
-      loadAll().then(function () {
-        $ionicLoading.hide();
+       GW2API.tokenHasPermission('inventories').then(function (hasPerm) {
+        if (hasPerm) {
+          $ionicLoading.show();
+
+          return loadAll().then(function () {
+            $ionicLoading.hide();
+          });
+        }
+        
+        vm.error = "Your API token needs the 'inventories' permission to access this page.";
       });
     }
 
@@ -816,14 +859,24 @@ angular.module('app.controllers', ['ionic']);
     function activate() {
       $ionicLoading.show();
 
-      GW2API.api.getCharacters($stateParams.charname).then(function (character) {
-        vm.character = character;
-        loadRecipes().then(function () {
-          $ionicLoading.hide();
-        });
-      }).catch(function (e) {
-        console.log(e);
+      GW2API.tokenHasPermission('builds').then(function (hasPerm) {
+        if (hasPerm) {
+          $ionicLoading.show();
+
+          return GW2API.api.getCharacters($stateParams.charname).then(function (character) {
+            vm.character = character;
+            loadRecipes().then(function () {
+              $ionicLoading.hide();
+            });
+          }).catch(function (e) {
+            console.log(e);
+          });
+        }
+
+        vm.error = "Your API token needs the 'builds' permission to access this page.";
       });
+
+
     }
 
     function loadRecipes() {
@@ -1293,14 +1346,15 @@ angular.module('app.controllers', ['ionic']);
         return;
       }
 
-      if (!GW2API.tokenHasPermission('wallet')) {
-        vm.error = "That token does not have 'wallet' permission.";
-        return;
-      }
+      GW2API.tokenHasPermission('wallet').then(function (hasPerm) {
+        if (hasPerm) {
+          $ionicLoading.show();
 
-      $ionicLoading.show();
+          return loadWallet();
+        }
 
-      loadWallet();
+        vm.error = "Your API token needs the 'wallet' permission to access this page.";
+      });
      }
 
      function loadWallet() {

@@ -24,10 +24,14 @@
         return;
       }
 
-      $ionicLoading.show();
-
-      loadAchievements().then(function () {
-        $ionicLoading.hide();
+       GW2API.tokenHasPermission('progression').then(function (hasPerm) {
+        if (hasPerm) {
+          return loadAchievements().then(function () {
+            $ionicLoading.hide();
+          });
+        }
+        
+        vm.error = "Your API token needs the 'progression' permission to access this page.";
       });
     }
 

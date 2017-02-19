@@ -23,14 +23,24 @@
     function activate() {
       $ionicLoading.show();
 
-      GW2API.api.getCharacters($stateParams.charname).then(function (character) {
-        vm.character = character;
-        loadRecipes().then(function () {
-          $ionicLoading.hide();
-        });
-      }).catch(function (e) {
-        console.log(e);
+      GW2API.tokenHasPermission('builds').then(function (hasPerm) {
+        if (hasPerm) {
+          $ionicLoading.show();
+
+          return GW2API.api.getCharacters($stateParams.charname).then(function (character) {
+            vm.character = character;
+            loadRecipes().then(function () {
+              $ionicLoading.hide();
+            });
+          }).catch(function (e) {
+            console.log(e);
+          });
+        }
+
+        vm.error = "Your API token needs the 'builds' permission to access this page.";
       });
+
+
     }
 
     function loadRecipes() {

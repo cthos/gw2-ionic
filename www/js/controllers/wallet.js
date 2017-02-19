@@ -22,14 +22,15 @@
         return;
       }
 
-      if (!GW2API.tokenHasPermission('wallet')) {
-        vm.error = "That token does not have 'wallet' permission.";
-        return;
-      }
+      GW2API.tokenHasPermission('wallet').then(function (hasPerm) {
+        if (hasPerm) {
+          $ionicLoading.show();
 
-      $ionicLoading.show();
+          return loadWallet();
+        }
 
-      loadWallet();
+        vm.error = "Your API token needs the 'wallet' permission to access this page.";
+      });
      }
 
      function loadWallet() {

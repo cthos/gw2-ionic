@@ -18,8 +18,16 @@
     function activate() {
       $ionicLoading.show();
 
-      loadAll().then(function () {
-        $ionicLoading.hide();
+       GW2API.tokenHasPermission('inventories').then(function (hasPerm) {
+        if (hasPerm) {
+          $ionicLoading.show();
+
+          return loadAll().then(function () {
+            $ionicLoading.hide();
+          });
+        }
+        
+        vm.error = "Your API token needs the 'inventories' permission to access this page.";
       });
     }
 
