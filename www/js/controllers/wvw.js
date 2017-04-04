@@ -9,6 +9,7 @@
   function WVWCtrl($scope) {
     var vm = this;
     vm.requestDetails = requestDetails;
+    vm.reload = reload;
 
     activate();
 
@@ -21,6 +22,13 @@
         }
         vm.wvw = $scope.$parent.achievements.wvw;
       });
+    }
+
+    /**
+     * Reloads all achievements.
+     */
+    function reload() {
+      $scope.$emit('reload-achievements');
     }
 
     function requestDetails(ach) {

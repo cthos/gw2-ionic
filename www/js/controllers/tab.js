@@ -9,6 +9,7 @@
   function TabCtrl($scope, $rootScope, $ionicSideMenuDelegate, $ionicLoading, $ionicPopup, GW2API) {
     var vm = this;
     vm.showRequirementsPopup = showRequirementsPopup;
+    vm.reload = reload;
 
     activate();
 
@@ -16,10 +17,26 @@
       $ionicLoading.show();
       
       $scope.$on('ach-details-req', vm.showRequirementsPopup);
+      $scope.$on('reload-achievements', vm.reload);
 
       GW2API.reload().then(function (achs) {
         $scope.achievements = achs;
         $ionicLoading.hide();
+      });
+    }
+
+    /**
+     * Reloads all achievements
+     * 
+     */
+    function reload() {
+      GW2API.api.setCache(false);
+
+      GW2API.reload().then(function (achs) {
+        $scope.achievements = achs;
+
+        GW2API.api.setCache(true);
+        $scope.$broadcast('scroll.refreshComplete');
       });
     }
 

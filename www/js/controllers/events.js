@@ -11,13 +11,13 @@
     var vm = this;
     vm.events = [];
     vm.showEventDetails = showEventDetails;
+    vm.reload = reload;
 
     activate();
 
     ////////////////
 
     function activate() {
-      $ionicLoading.show();
       loadEvents();
     }
 
@@ -39,7 +39,14 @@
       });
 
       vm.events = vm.events.concat(laterEvents);
-      $ionicLoading.hide();
+    }
+
+    /**
+     * Reloads all achievements.
+     */
+    function reload() {
+      loadEvents();
+      $scope.$broadcast('scroll.refreshComplete');
     }
 
     function showEventDetails(event) {

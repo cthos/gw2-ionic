@@ -525,13 +525,13 @@ angular.module('app.controllers', ['ionic']);
     var vm = this;
     vm.events = [];
     vm.showEventDetails = showEventDetails;
+    vm.reload = reload;
 
     activate();
 
     ////////////////
 
     function activate() {
-      $ionicLoading.show();
       loadEvents();
     }
 
@@ -553,7 +553,14 @@ angular.module('app.controllers', ['ionic']);
       });
 
       vm.events = vm.events.concat(laterEvents);
-      $ionicLoading.hide();
+    }
+
+    /**
+     * Reloads all achievements.
+     */
+    function reload() {
+      loadEvents();
+      $scope.$broadcast('scroll.refreshComplete');
     }
 
     function showEventDetails(event) {
@@ -766,6 +773,7 @@ angular.module('app.controllers', ['ionic']);
   function PVECtrl($scope, GW2API) {
     var vm = this;
     vm.requestDetails = requestDetails;
+    vm.reload = reload;
     activate();
 
     ////////////////
@@ -799,6 +807,14 @@ angular.module('app.controllers', ['ionic']);
       });
     }
 
+    /**
+     * Reloads all achievements.
+     */
+    function reload() {
+      $scope.$emit('reload-achievements');
+    }
+
+
     function requestDetails(ach) {
       $scope.$emit('ach-details-req', ach);
     }
@@ -815,6 +831,7 @@ angular.module('app.controllers', ['ionic']);
   function PVPCtrl($scope) {
     var vm = this;
     vm.requestDetails = requestDetails;
+    vm.reload = reload;
 
     activate();
 
@@ -829,6 +846,13 @@ angular.module('app.controllers', ['ionic']);
       });
     }
 
+    /**
+     * Reloads all achievements.
+     */
+    function reload() {
+      $scope.$emit('reload-achievements');
+    }
+    
     function requestDetails(ach) {
       $scope.$emit('ach-details-req', ach);
     }
@@ -1048,6 +1072,7 @@ angular.module('app.controllers', ['ionic']);
   function TabCtrl($scope, $rootScope, $ionicSideMenuDelegate, $ionicLoading, $ionicPopup, GW2API) {
     var vm = this;
     vm.showRequirementsPopup = showRequirementsPopup;
+    vm.reload = reload;
 
     activate();
 
@@ -1055,10 +1080,26 @@ angular.module('app.controllers', ['ionic']);
       $ionicLoading.show();
       
       $scope.$on('ach-details-req', vm.showRequirementsPopup);
+      $scope.$on('reload-achievements', vm.reload);
 
       GW2API.reload().then(function (achs) {
         $scope.achievements = achs;
         $ionicLoading.hide();
+      });
+    }
+
+    /**
+     * Reloads all achievements
+     * 
+     */
+    function reload() {
+      GW2API.api.setCache(false);
+
+      GW2API.reload().then(function (achs) {
+        $scope.achievements = achs;
+
+        GW2API.api.setCache(true);
+        $scope.$broadcast('scroll.refreshComplete');
       });
     }
 
@@ -1391,6 +1432,7 @@ angular.module('app.controllers', ['ionic']);
   function WVWCtrl($scope) {
     var vm = this;
     vm.requestDetails = requestDetails;
+    vm.reload = reload;
 
     activate();
 
@@ -1403,6 +1445,13 @@ angular.module('app.controllers', ['ionic']);
         }
         vm.wvw = $scope.$parent.achievements.wvw;
       });
+    }
+
+    /**
+     * Reloads all achievements.
+     */
+    function reload() {
+      $scope.$emit('reload-achievements');
     }
 
     function requestDetails(ach) {

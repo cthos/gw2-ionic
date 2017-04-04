@@ -1,5 +1,8 @@
 <ion-view view-title="Daily PVE">
   <ion-content class="padding">
+    <ion-refresher
+      pulling-text="Pull to refresh..."
+      on-refresh="vm.reload()"></ion-refresher>
     <ul class="daily-pve list">
       <li class="item item-icon-left" ng-repeat="ach in vm.pve" ng-click="vm.requestDetails(ach)">
         <i class="icon fa fa-globe"></i>

@@ -9,6 +9,7 @@
   function PVPCtrl($scope) {
     var vm = this;
     vm.requestDetails = requestDetails;
+    vm.reload = reload;
 
     activate();
 
@@ -23,6 +24,13 @@
       });
     }
 
+    /**
+     * Reloads all achievements.
+     */
+    function reload() {
+      $scope.$emit('reload-achievements');
+    }
+    
     function requestDetails(ach) {
       $scope.$emit('ach-details-req', ach);
     }
