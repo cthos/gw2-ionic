@@ -14,12 +14,18 @@
     };
 
     var TrackedKeyName = 'APITrackedKeys';
+    var cacheDuration = 4 * 3600 * 1000; // 4 hours
 
     return service;
 
     ////////////////
     function setItem(key, value) {
       var trackedKeys = getTrackedKeys();
+      var cacheContainer = {
+        value : value,
+        cachedOn: moment.now(),
+        expiresOn: moment.now() + cacheDuration
+      };
 
       if (trackedKeys.indexOf(key) == -1 && key != 'apiKey') {
         trackedKeys.push(key);
@@ -27,11 +33,18 @@
 
       window.localStorage.setItem(TrackedKeyName, JSON.stringify(trackedKeys));
 
-      return window.localStorage.setItem(key, value);
+      return window.localStorage.setItem(key, JSON.stringify(cacheContainer));
     }
 
     function getItem(key) {
-      return window.localStorage.getItem(key);
+      // Backwards compat - if there's no cachedOn, return nothing.
+      var value = JSON.parse(window.localStorage.getItem(key));
+
+      if (!value.cachedOn || value.expiresOn < moment.now()) {
+        return null;
+      }
+
+      return value.value;
     }
 
     function clear() {
