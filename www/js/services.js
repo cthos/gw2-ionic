@@ -163,7 +163,7 @@ angular.module('app.services', []);
       // Backwards compat - if there's no cachedOn, return nothing.
       var value = JSON.parse(window.localStorage.getItem(key));
 
-      if (!value.cachedOn || value.expiresOn < moment.now()) {
+      if (!value || !value.cachedOn || value.expiresOn < moment.now()) {
         return null;
       }
 

@@ -19,6 +19,8 @@
       $scope.$on('ach-details-req', vm.showRequirementsPopup);
       $scope.$on('reload-achievements', vm.reload);
 
+      console.log("Reloading....");
+
       GW2API.reload().then(function (achs) {
         $scope.achievements = achs;
         $ionicLoading.hide();

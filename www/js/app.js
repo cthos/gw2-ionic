@@ -8,7 +8,7 @@
 angular.module('app', ['ionic', 'app.controllers', 'app.services'])
 
 .run(function($ionicPlatform) {
-  $ionicPlatform.ready(function() {
+  $ionicPlatform.ready(function(GW2API) {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
@@ -22,11 +22,16 @@ angular.module('app', ['ionic', 'app.controllers', 'app.services'])
     }
 
     document.addEventListener("deviceready", onDeviceReady, false);
+    document.addEventListener("resume", onResume, false);
 
     function onDeviceReady() {
       if (window.cordova && window.cordova.InAppBrowser) {
         window.open = window.cordova.InAppBrowser.open;
       }
+    }
+
+    function onResume() {
+      GW2API.reload(); 
     }
   });
 })

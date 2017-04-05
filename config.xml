@@ -22,7 +22,8 @@
   <preference name="xwalkMode" value="embedded"/>
   <preference name="xwalkMultipleApk" value="true"/>
   <feature name="StatusBar">
-    <param name="ios-package" onload="true" value="CDVStatusBar"/>
+    <param name="ios-package" value="CDVStatusBar" />
+    <param name="onload" value="true" />
   </feature>
   <platform name="android">
     <icon src="resources/android/icon/drawable-ldpi-icon.png" density="ldpi"/>
