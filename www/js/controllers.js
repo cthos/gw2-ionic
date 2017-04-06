@@ -1077,7 +1077,7 @@ angular.module('app.controllers', ['ionic']);
     activate();
 
     function activate() {
-      //$ionicLoading.show();
+      $ionicLoading.show();
       
       $scope.$on('ach-details-req', vm.showRequirementsPopup);
       $scope.$on('reload-achievements', vm.reload);
