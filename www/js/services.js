@@ -164,6 +164,13 @@ angular.module('app.services', []);
       try {
         var value = JSON.parse(window.localStorage.getItem(key));
 
+        // The apiKey never expires. Also this is clunky.
+        if (key === 'apiKey') {
+          return value.value || value;
+        }
+
+        var expiresIn = (value.expiresOn - moment.now()) / 1000;
+
         if (!value || !value.cachedOn || value.expiresOn < moment.now()) {
           return null;
         }
