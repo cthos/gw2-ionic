@@ -59,6 +59,7 @@
 
     function reload() {
       GW2API.api.setCache(false);
+      GW2API.api.setStoreInCache(true);
       loadAchievements().then(function (achs) {
         GW2API.api.setCache(true);
 

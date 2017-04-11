@@ -60,6 +60,7 @@ angular.module('app.controllers', ['ionic']);
 
     function reload() {
       GW2API.api.setCache(false);
+      GW2API.api.setStoreInCache(true);
       loadAchievements().then(function (achs) {
         GW2API.api.setCache(true);
 
@@ -175,6 +176,7 @@ angular.module('app.controllers', ['ionic']);
       // TODO: Kinda clunky. Maybe a method to disable next call cache?
       // But that could also make cache calls not chain right.
       GW2API.api.setCache(false);
+      GW2API.api.setStoreInCache(true);
       loadBank().then(function () {
         GW2API.api.setCache(true);
         $scope.$broadcast('scroll.refreshComplete');
@@ -314,6 +316,7 @@ angular.module('app.controllers', ['ionic']);
 
     function reload() {
       GW2API.api.setCache(false);
+      GW2API.api.setStoreInCache(true);
 
       loadData().then(function () {
         GW2API.api.setCache(true);
@@ -384,6 +387,7 @@ angular.module('app.controllers', ['ionic']);
 
     function reload() {
       GW2API.api.setCache(false);
+      GW2API.api.setStoreInCache(true);
 
       loadCharacterData().then(function () {
         GW2API.api.setCache(true);
@@ -432,6 +436,7 @@ angular.module('app.controllers', ['ionic']);
 
     function reload() {
       GW2API.api.setCache(false);
+      GW2API.api.setStoreInCache(true);
 
       loadCharacters().then(function () {
         GW2API.api.setCache(true);
@@ -504,6 +509,7 @@ angular.module('app.controllers', ['ionic']);
     
     function reload() {
       GW2API.api.setCache(false);
+      GW2API.api.setStoreInCache(true);
 
       loadEquipment().then(function () {
         GW2API.api.setCache(true);
@@ -634,6 +640,7 @@ angular.module('app.controllers', ['ionic']);
 
     function reload() {
       GW2API.api.setCache(false);
+      GW2API.api.setStoreInCache(true);
 
       loadAll().then(function () {
         GW2API.api.setCache(true);
@@ -754,6 +761,7 @@ angular.module('app.controllers', ['ionic']);
 
     function reload() {
       GW2API.api.setCache(false);
+      GW2API.api.setStoreInCache(true);
 
       loadMaterials().then(function () {
         GW2API.api.setCache(true);
@@ -997,6 +1005,7 @@ angular.module('app.controllers', ['ionic']);
 
     function reload() {
       GW2API.api.setCache(false);
+      GW2API.api.setStoreInCache(true);
 
       loadRecipes().then(function () {
         GW2API.api.setCache(true);
@@ -1096,6 +1105,7 @@ angular.module('app.controllers', ['ionic']);
      */
     function reload() {
       GW2API.api.setCache(false);
+      GW2API.api.setStoreInCache(true);
 
       GW2API.reload().then(function (achs) {
         $scope.achievements = achs;
@@ -1237,6 +1247,7 @@ angular.module('app.controllers', ['ionic']);
 
     function reload() {
       GW2API.api.setCache(false);
+      GW2API.api.setStoreInCache(true);
 
       loadTransactions().then(function () {
         GW2API.api.setCache(true);
@@ -1349,6 +1360,7 @@ angular.module('app.controllers', ['ionic']);
 
     function reload() {
       GW2API.api.setCache(false);
+      GW2API.api.setStoreInCache(true);
 
       loadTransactions().then(function () {
         GW2API.api.setCache(true);
@@ -1415,6 +1427,7 @@ angular.module('app.controllers', ['ionic']);
 
      function reload() {
        GW2API.api.setCache(false);
+       GW2API.api.setStoreInCache(true);
 
        loadWallet().then(function () {
          GW2API.api.setCache(true);

@@ -110,6 +110,7 @@
 
     function reload() {
       GW2API.api.setCache(false);
+      GW2API.api.setStoreInCache(true);
 
       loadMaterials().then(function () {
         GW2API.api.setCache(true);

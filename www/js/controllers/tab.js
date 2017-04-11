@@ -33,6 +33,7 @@
      */
     function reload() {
       GW2API.api.setCache(false);
+      GW2API.api.setStoreInCache(true);
 
       GW2API.reload().then(function (achs) {
         $scope.achievements = achs;

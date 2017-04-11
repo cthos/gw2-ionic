@@ -60,6 +60,7 @@
 
     function reload() {
       GW2API.api.setCache(false);
+      GW2API.api.setStoreInCache(true);
 
       loadCharacterData().then(function () {
         GW2API.api.setCache(true);

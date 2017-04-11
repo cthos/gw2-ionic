@@ -56,6 +56,7 @@
       // TODO: Kinda clunky. Maybe a method to disable next call cache?
       // But that could also make cache calls not chain right.
       GW2API.api.setCache(false);
+      GW2API.api.setStoreInCache(true);
       loadBank().then(function () {
         GW2API.api.setCache(true);
         $scope.$broadcast('scroll.refreshComplete');

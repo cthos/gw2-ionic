@@ -95,6 +95,7 @@
 
     function reload() {
       GW2API.api.setCache(false);
+      GW2API.api.setStoreInCache(true);
 
       loadTransactions().then(function () {
         GW2API.api.setCache(true);
